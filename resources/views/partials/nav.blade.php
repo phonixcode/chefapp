@@ -8,7 +8,7 @@
         </div>
         <div class="offcanvas__cart__item">
             <a href="{{ route('cart') }}"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="cart__price">Cart: <span>$0.00</span></div>
+            <div class="cart__price">Cart: <span>€0.00</span></div>
         </div>
     </div>
     <div class="offcanvas__logo">
@@ -37,7 +37,7 @@
                             </div>
                             <div class="header__top__right__cart">
                                 <a href="{{ route('cart') }}"><img src="{{ asset('img/icon/cart.png') }}" alt=""> <span>0</span></a>
-                                <div class="cart__price">Cart: <span>$0.00</span></div>
+                                <div class="cart__price">Cart: <span>€0.00</span></div>
                             </div>
                         </div>
                     </div>

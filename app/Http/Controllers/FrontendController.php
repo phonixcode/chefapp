@@ -25,6 +25,11 @@ class FrontendController extends Controller
     {
         return view('user.recipe');
     }
+
+    public function recipeDetails()
+    {
+        return view('user.recipe_details');
+    }
     public function chefs()
     {
         return view('user.chef');
