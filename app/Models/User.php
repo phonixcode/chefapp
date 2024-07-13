@@ -20,7 +20,17 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'photo',
         'password',
+        'address', 
+        'city', 
+        'state', 
+        'restaurant_name', 
+        'restaurant_address', 
+        'restaurant_city', 
+        'restaurant_state', 
+        'speciality', 
+        'experience',
     ];
 
     /**
@@ -42,4 +52,40 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function recipes()
+    {
+        return $this->hasMany(Recipe::class);
+    }
+
+    // public function purchases()
+    // {
+    //     return $this->hasMany(Purchase::class);
+    // }
+
+    // Define a scope for chefs
+    public function scopeChefs($query)
+    {
+        return $query->whereHas('roles', function ($query) {
+            $query->where('name', 'chef');
+        });
+    }
+
+    public function scopeRandomChefs($query, $limit = 4)
+    {
+        return $query->whereHas('roles', function ($query) {
+            $query->where('name', 'chef');
+        })->inRandomOrder()->limit($limit);
+    }
+
+    // Accessor to get role names
+    public function getRoleNamesAttribute()
+    {
+        return $this->roles->pluck('name')->toArray();
+    }
 }

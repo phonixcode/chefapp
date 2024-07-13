@@ -1,4 +1,4 @@
-<footer class="footer set-bg" data-setbg="img/footer-bg.jpg">
+<footer class="footer set-bg" data-setbg="{{ asset('img/footer-bg.jpg') }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6">

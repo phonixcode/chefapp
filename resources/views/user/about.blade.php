@@ -20,7 +20,7 @@
 
 @include('user._include._testimonial')
 
-@include('user._include._chef')
+@include('user._include._chef', ['chefs', $chefs])
 
 @include('user._include._map')
     

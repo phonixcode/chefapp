@@ -8,7 +8,7 @@
         </div>
         <div class="offcanvas__cart__item">
             <a href="{{ route('cart') }}"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="cart__price">Cart: <span>€0.00</span></div>
+            <div class="cart__price">Cart: <span>$0.00</span></div>
         </div>
     </div>
     <div class="offcanvas__logo">
@@ -25,19 +25,51 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="header__top__inner">
-
                         <div class="header__top__left">
-                            <a href="{{ route('home') }}"><img src="{{ asset('img/logo.png') }}" alt="" width="200"></a>
+                            <ul>
+                                @auth
+                                    @php
+                                        $role = implode(', ', auth()->user()->role_names);
+                                    @endphp
+                                    <li>{{ auth()->user()->name }} <span class="arrow_carrot-down"></span>
+                                        <ul>
+                                            @if ($role == 'chef' || $role == 'admin')
+                                                <li><a href="" class="text-white">Dashboard</a></li>
+                                            @endif
+                                            <li><a href="" class="text-white">Profile</a></li>
+                                            <li><a href="" class="text-white">Puchases</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
+                                @else
+                                    <li><a href="{{ route('login') }}">Login</a></li>
+                                    <li><a href="{{ route('register') }}">Register</a></li>
+                                @endauth
+                            </ul>
+                        </div>
+                        <div class="header__logo">
+                            <a href="{{ route('home') }}"><img src="{{ asset('img/logo.png') }}" alt=""
+                                    width="200"></a>
                         </div>
                         <div class="header__top__right">
                             <div class="header__top__right__links">
                                 <a href="#" class="search-switch"><img src="{{ asset('img/icon/search.png') }}"
                                         alt=""></a>
-                                <a href="{{ route('wishlist') }}"><img src="{{ asset('img/icon/heart.png') }}" alt=""></a>
+                                <a href="{{ route('wishlist') }}"><img src="{{ asset('img/icon/heart.png') }}"
+                                        alt=""></a>
                             </div>
                             <div class="header__top__right__cart">
-                                <a href="{{ route('cart') }}"><img src="{{ asset('img/icon/cart.png') }}" alt=""> <span>0</span></a>
-                                <div class="cart__price">Cart: <span>€0.00</span></div>
+                                <a href="{{ route('cart') }}"><img src="{{ asset('img/icon/cart.png') }}"
+                                        alt=""> <span>0</span></a>
+                                <div class="cart__price">Cart: <span>$0.00</span></div>
                             </div>
                         </div>
                     </div>
@@ -51,10 +83,14 @@
             <div class="col-lg-12">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li class="{{ request()->routeIs('home') ? 'active' : '' }}"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="{{ request()->routeIs('about') ? 'active' : '' }}"><a href="{{ route('about') }}">About</a></li>
-                        <li class="{{ request()->routeIs('recipes') ? 'active' : '' }}"><a href="{{ route('recipes') }}">Recipes</a></li>
-                        <li class="{{ request()->routeIs('chefs') ? 'active' : '' }}"><a href="{{ route('chefs') }}">Chefs</a></li>
+                        <li class="{{ request()->routeIs('home') ? 'active' : '' }}"><a
+                                href="{{ route('home') }}">Home</a></li>
+                        <li class="{{ request()->routeIs('about') ? 'active' : '' }}"><a
+                                href="{{ route('about') }}">About</a></li>
+                        <li class="{{ request()->routeIs('recipes') ? 'active' : '' }}"><a
+                                href="{{ route('recipes') }}">Recipes</a></li>
+                        <li class="{{ request()->routeIs('chefs') ? 'active' : '' }}"><a
+                                href="{{ route('chefs') }}">Chefs</a></li>
                         {{-- <li><a href="#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="./shop-details.html">Shop Details</a></li>
@@ -65,8 +101,10 @@
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li> --}}
-                        <li class="{{ request()->routeIs('blog') ? 'active' : '' }}"><a href="{{ route('blog') }}">Blog</a></li>
-                        <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a href="{{ route('contact') }}">Contact</a></li>
+                        <li class="{{ request()->routeIs('blog') ? 'active' : '' }}"><a
+                                href="{{ route('blog') }}">Blog</a></li>
+                        <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a
+                                href="{{ route('contact') }}">Contact</a></li>
                     </ul>
                 </nav>
             </div>

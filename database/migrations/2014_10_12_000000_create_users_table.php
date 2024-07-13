@@ -15,8 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            // Chef specific fields
+            $table->string('restaurant_name')->nullable();
+            $table->string('restaurant_address')->nullable();
+            $table->string('restaurant_city')->nullable();
+            $table->string('restaurant_state')->nullable();
+            $table->string('speciality')->nullable();
+            $table->integer('experience')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
