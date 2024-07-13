@@ -13,7 +13,7 @@
                         <thead>
                             <tr>
                                 <th>Reciepe</th>
-                                <th>Quantity</th>
+                                <th></th>
                                 <th>Total</th>
                                 <th></th>
                             </tr>
@@ -30,11 +30,7 @@
                                     </div>
                                 </td>
                                 <td class="quantity__item">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
+                                   
                                 </td>
                                 <td class="cart__price">€ 30.00</td>
                                 <td class="cart__close"><span class="icon_close"></span></td>

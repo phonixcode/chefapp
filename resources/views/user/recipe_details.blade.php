@@ -51,11 +51,6 @@
                             <li>Category: <span>{{ $recipe->category->name }}</span></li>
                         </ul>
                         <div class="product__details__option">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="2">
-                                </div>
-                            </div>
                             <a href="{{ route('cart') }}" class="primary-btn">Add to cart</a>
                             <a href="{{ route('wishlist') }}" class="heart__btn"><span class="icon_heart_alt"></span></a>
                         </div>
