@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\RegisterRequest;
 use App\Repository\RegisterRepository;
 use App\Providers\RouteServiceProvider;
 
@@ -45,14 +46,15 @@ class AuthController extends Controller
         return view('user.auth.register');
     }
 
-    public function registerSubmit(Request $request)
+    public function registerSubmit(RegisterRequest $request)
     {
+        $data = $request->validated();
         if ($request->get('action') == 'chef') {
             $this->validateChef($request);
-            $user = $this->registerRepository->registerChef($request->all());
+            $user = $this->registerRepository->registerChef($data);
         } else {
             $this->validateUser($request);
-            $user = $this->registerRepository->registerUser($request->all());
+            $user = $this->registerRepository->registerUser($data);
         }
 
         return $user

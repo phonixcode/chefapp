@@ -61,15 +61,12 @@
                         </div>
                         <div class="header__top__right">
                             <div class="header__top__right__links">
-                                <a href="#" class="search-switch"><img src="{{ asset('img/icon/search.png') }}"
-                                        alt=""></a>
-                                <a href="{{ route('wishlist') }}"><img src="{{ asset('img/icon/heart.png') }}"
-                                        alt=""></a>
+                                <a href="#" class="search-switch"><img src="{{ asset('img/icon/search.png') }}" alt=""></a>
+                                <a href="{{ route('wishlist') }}"><img src="{{ asset('img/icon/heart.png') }}" alt=""></a>
                             </div>
                             <div class="header__top__right__cart">
-                                <a href="{{ route('cart') }}"><img src="{{ asset('img/icon/cart.png') }}"
-                                        alt=""> <span>0</span></a>
-                                <div class="cart__price">Cart: <span>$0.00</span></div>
+                                <a href="{{ route('cart') }}"><img src="{{ asset('img/icon/cart.png') }}" alt=""> <span>0</span></a>
+                                <div class="cart__price">Cart: <span class="cart_price">€0.00</span></div>
                             </div>
                         </div>
                     </div>

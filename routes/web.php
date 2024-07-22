@@ -32,6 +32,7 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/blog', 'blog')->name('blog');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/cart', 'cart')->name('cart');
+    Route::get('/checkout', 'checkout')->name('checkout');
     Route::get('/wishlist', 'wishlist')->name('wishlist');
     Route::get('/chefs', 'chefs')->name('chefs');
 });

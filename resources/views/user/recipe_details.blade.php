@@ -74,20 +74,17 @@
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-lg-8">
-                                    <p>This delectable Strawberry Pie is an extraordinary treat filled with sweet and
-                                        tasty chunks of delicious strawberries. Made with the freshest ingredients, one
-                                        bite will send you to summertime. Each gift arrives in an elegant gift box and
-                                        arrives with a greeting card of your choice that you can personalize online!</p>
+                                    <p>
+                                        {{ $recipe->long_description }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-lg-8">
-                                    <p>This delectable Strawberry Pie is an extraordinary treat filled with sweet and
-                                        tasty chunks of delicious strawberries. Made with the freshest ingredients, one
-                                        bite will send you to summertime. Each gift arrives in an elegant gift box and
-                                        arrives with a greeting card of your choice that you can personalize online!2
+                                    <p>
+                                        {{ $recipe->additional_description }}
                                     </p>
                                 </div>
                             </div>

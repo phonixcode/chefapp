@@ -61,7 +61,7 @@
             <div class="row">
                 @forelse ($recipes as $item)
                     <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="product__item">
+                        <div class="product__item" data-id="{{ $item->id }}">
                             <div class="product__item__pic set-bg"
                                 data-setbg="{{ asset('img/shop/' . $item->images[0]->image_path) }}">
                                 <div class="product__label">
@@ -70,9 +70,9 @@
                             </div>
                             <div class="product__item__text">
                                 <h6><a href="{{ route('recipes.details', $item->slug) }}">{{ $item->title }}</a></h6>
-                                <div class="product__item__price">€{{ $item->price }}</div>
+                                <div class="product__item__price" data-price="{{ $item->price }}">€{{ $item->price }}</div>
                                 <div class="cart_add">
-                                    <a href="#">Add to cart</a>
+                                    <a href="javascript:void(0);">Add to cart</a>
                                 </div>
                             </div>
                         </div>

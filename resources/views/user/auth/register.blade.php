@@ -23,6 +23,16 @@
                             <div class="col-lg-6">
                                 <label for="password">Password</label>
                                 <input type="password" id="password" name="password" placeholder="******">
+                                <div id="password-help" class="form-text">
+                                    Password must contain at least 8 characters, including at least one uppercase letter, one lowercase letter, one number, and one special character.
+                                </div>
+                                <ul id="password-requirements">
+                                    <li id="length" class="invalid">At least 8 characters</li>
+                                    <li id="uppercase" class="invalid">At least one uppercase letter</li>
+                                    <li id="lowercase" class="invalid">At least one lowercase letter</li>
+                                    <li id="number" class="invalid">At least one number</li>
+                                    <li id="special" class="invalid">At least one special character (@, $, !, %, *, ?, &)</li>
+                                </ul>
                             </div>
                             <div class="col-lg-6">
                                 <label for="confirm_password">Confirm Password</label>
@@ -71,7 +81,7 @@
 
                             <div class="col-lg-12">
                                 <span>Already have an account? <a href="{{ route('login') }}">Click here</a></span><br><br>
-                                <button type="submit" class="site-btn">Submit</button>
+                                <button type="submit" class="site-btn" id="submit-button" disabled>Submit</button>
                                 <span>Become a Registered Chef: <a href="{{ route('register', ['action' => 'chef']) }}"
                                         id="chef-link">Sign Up Here</a></span>
                             </div>
@@ -98,6 +108,59 @@
                 const form = document.getElementById('register-form');
                 form.action += '?action=chef';
             }
+
+            // Password validation
+            const submitButton = document.getElementById('submit-button');
+            const passwordInput = document.getElementById('password');
+            const passwordRequirements = document.getElementById('password-requirements');
+            const lengthRequirement = document.getElementById('length');
+            const uppercaseRequirement = document.getElementById('uppercase');
+            const lowercaseRequirement = document.getElementById('lowercase');
+            const numberRequirement = document.getElementById('number');
+            const specialRequirement = document.getElementById('special');
+
+            passwordInput.addEventListener('input', function() {
+                const value = passwordInput.value;
+                const lengthValid = value.length >= 8;
+                const uppercaseValid = /[A-Z]/.test(value);
+                const lowercaseValid = /[a-z]/.test(value);
+                const numberValid = /[0-9]/.test(value);
+                const specialValid = /[@$!%*?&]/.test(value);
+
+                lengthRequirement.classList.toggle('valid', lengthValid);
+                lengthRequirement.classList.toggle('invalid', !lengthValid);
+
+                uppercaseRequirement.classList.toggle('valid', uppercaseValid);
+                uppercaseRequirement.classList.toggle('invalid', !uppercaseValid);
+
+                lowercaseRequirement.classList.toggle('valid', lowercaseValid);
+                lowercaseRequirement.classList.toggle('invalid', !lowercaseValid);
+
+                numberRequirement.classList.toggle('valid', numberValid);
+                numberRequirement.classList.toggle('invalid', !numberValid);
+
+                specialRequirement.classList.toggle('valid', specialValid);
+                specialRequirement.classList.toggle('invalid', !specialValid);
+
+                const allValid = lengthValid && uppercaseValid && lowercaseValid && numberValid && specialValid;
+                submitButton.disabled = !allValid;
+            });
         });
     </script>
+@endpush
+@push('css')
+<style>
+    #password-requirements {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #password-requirements li {
+        color: red;
+    }
+
+    #password-requirements li.valid {
+        color: green;
+    }
+</style>
 @endpush
