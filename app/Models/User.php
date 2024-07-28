@@ -63,10 +63,10 @@ class User extends Authenticatable
         return $this->hasMany(Recipe::class);
     }
 
-    // public function purchases()
-    // {
-    //     return $this->hasMany(Purchase::class);
-    // }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
     // Define a scope for chefs
     public function scopeChefs($query)

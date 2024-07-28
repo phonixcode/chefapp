@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,5 +49,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/order-success', 'successPage')->name('order.success');
         Route::get('/order-cancel', 'cancelPage')->name('order.cancel');
         Route::get('orders/download', 'download')->name('order.download');
+    });
+
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('/user-profile', 'profile')->name('user.profile');
+        Route::post('/user-profile-update', 'user_info_update')->name('user.profile.update');
+        Route::post('/user-password', 'user_password_update')->name('user.password.update');
+        Route::get('/user-orders', 'user_orders')->name('user.orders');
     });
 });

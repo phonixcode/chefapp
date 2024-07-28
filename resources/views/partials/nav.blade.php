@@ -36,8 +36,8 @@
                                             @if ($role == 'chef' || $role == 'admin')
                                                 <li><a href="" class="text-white">Dashboard</a></li>
                                             @endif
-                                            <li><a href="" class="text-white">Profile</a></li>
-                                            <li><a href="" class="text-white">Puchases</a></li>
+                                            <li><a href="{{ route('user.profile') }}" class="text-white">Profile</a></li>
+                                            <li><a href="{{ route('user.orders') }}" class="text-white">Orders</a></li>
                                         </ul>
                                     </li>
                                     <li>
@@ -88,16 +88,6 @@
                                 href="{{ route('recipes') }}">Recipes</a></li>
                         <li class="{{ request()->routeIs('chefs') ? 'active' : '' }}"><a
                                 href="{{ route('chefs') }}">Chefs</a></li>
-                        {{-- <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./wisslist.html">Wisslist</a></li>
-                                <li><a href="./Class.html">Class</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li> --}}
                         <li class="{{ request()->routeIs('blog') ? 'active' : '' }}"><a
                                 href="{{ route('blog') }}">Blog</a></li>
                         <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a
