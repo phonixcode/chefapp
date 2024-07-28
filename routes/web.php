@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,11 +33,20 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/blog', 'blog')->name('blog');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/cart', 'cart')->name('cart');
-    Route::get('/checkout', 'checkout')->name('checkout');
+    Route::get('/checkout', 'checkout')->name('checkout')->middleware('auth');
     Route::get('/wishlist', 'wishlist')->name('wishlist');
     Route::get('/chefs', 'chefs')->name('chefs');
 });
 
-Route::middleware('auth')->controller(AuthController::class)->group(function () {
-    Route::post('logout', 'logout')->name('logout');
+Route::middleware('auth')->group(function () {
+    Route::post('logout',[AuthController::class, 'logout'])->name('logout');
+
+    Route::controller(OrderController::class)->group(function () {
+        Route::post('/checkout', 'checkout')->name('checkout');
+        Route::get('/paypal/success/{orderId}', 'success')->name('paypal.success');
+        Route::get('/paypal/cancel', 'cancel')->name('paypal.cancel');
+        Route::get('/order-success', 'successPage')->name('order.success');
+        Route::get('/order-cancel', 'cancelPage')->name('order.cancel');
+        Route::get('orders/download', 'download')->name('order.download');
+    });
 });

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addToCartButtons = document.querySelectorAll('.cart_add a');
-    const cartCountElement = document.querySelector('.header__top__right__cart a span');
+    const cartCountElement = document.querySelector('.cart_num');
     const cartPriceElement = document.querySelector('.cart_price');
 
     function updateCartInfo() {
@@ -153,4 +153,93 @@ document.addEventListener('DOMContentLoaded', () => {
 
     updateCartPage();
     updateCartInfo();
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const checkoutProductsList = document.getElementById('checkout-products');
+    const subtotalAmountElement = document.getElementById('subtotal-amount');
+    const totalAmountElement = document.getElementById('total-amount');
+
+    function loadCartItems() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        checkoutProductsList.innerHTML = '';
+
+        if (cart.length === 0) {
+            checkoutProductsList.innerHTML = '<li>No Cart Items Found</li>';
+            subtotalAmountElement.textContent = '€0.00';
+            totalAmountElement.textContent = '€0.00';
+            return;
+        }
+
+        let subtotal = 0;
+
+        cart.forEach((item, index) => {
+            const itemTotalPrice = (item.price * item.quantity).toFixed(2);
+            subtotal += parseFloat(itemTotalPrice);
+
+            const productItem = document.createElement('li');
+            productItem.innerHTML = `<samp>${String(index + 1).padStart(2, '0')}.</samp> ${item.title} <span>€${itemTotalPrice}</span>`;
+            checkoutProductsList.appendChild(productItem);
+        });
+
+        const formattedSubtotal = `€${subtotal.toFixed(2)}`;
+        subtotalAmountElement.textContent = formattedSubtotal;
+        totalAmountElement.textContent = formattedSubtotal;
+    }
+
+    // Initialize checkout page on load
+    loadCartItems();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const placeOrderButton = document.getElementById('order-item');
+    const buttonSpinner = document.getElementById('button-spinner');
+
+    if (placeOrderButton) {
+        placeOrderButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Your cart is empty.');
+                return;
+            }
+
+            // Show spinner and disable the button
+            buttonSpinner.style.display = 'inline-block';
+            placeOrderButton.classList.add('disable-button');
+
+            try {
+                const response = await fetch('/checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ cart })
+                });
+
+                const data = await response.json();
+
+                // Hide spinner and enable the button
+                buttonSpinner.style.display = 'none';
+                placeOrderButton.classList.remove('disable-button');
+
+                if (data.status === 'success' && data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                    localStorage.removeItem('cart'); // Clear the cart on the frontend
+                } else {
+                    alert(data.message || 'Something went wrong.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again.');
+
+                // Hide spinner and enable the button in case of an error
+                buttonSpinner.style.display = 'none';
+                placeOrderButton.classList.remove('disable-button');
+            }
+        });
+    }
 });

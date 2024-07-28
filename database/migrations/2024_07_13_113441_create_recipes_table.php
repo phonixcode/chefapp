@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description'); // Recipe description
             $table->longText('long_description')->nullable(); // long description description
             $table->longText('additional_description')->nullable(); // additional description
+            $table->longText('recipe_information'); // Recipe information
             $table->decimal('price', 8, 2); // Price of the recipe
             $table->string('label')->nullable(); // Recipe label (e.g., Lunch)
             $table->string('sku')->nullable(); // SKU for the recipe

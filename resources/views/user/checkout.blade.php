@@ -14,21 +14,22 @@
                         <div class="checkout__order">
                             <h6 class="order__title">Your order</h6>
                             <div class="checkout__order__products">Product <span>Total</span></div>
-                            <ul class="checkout__total__products">
-                                <li><samp>01.</samp> Vanilla salted caramel <span>$ 300.0</span></li>
-                                <li><samp>02.</samp> German chocolate <span>$ 170.0</span></li>
-                                <li><samp>03.</samp> Sweet autumn <span>$ 170.0</span></li>
-                                <li><samp>04.</samp> Cluten free mini dozen <span>$ 110.0</span></li>
+                            <ul class="checkout__total__products" id="checkout-products">
+                                <!-- Cart items will be populated here by JavaScript -->
                             </ul>
                             <ul class="checkout__total__all">
-                                <li>Subtotal <span>$750.99</span></li>
-                                <li>Total <span>$750.99</span></li>
+                                <li>Subtotal <span id="subtotal-amount">$0.00</span></li>
+                                <li>Total <span id="total-amount">$0.00</span></li>
                             </ul>
 
-                            <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua.</p>
+                            <p>
+                                the recipe will be sent to your email address
+                            </p>
                             
-                            <button type="submit" class="site-btn">PLACE ORDER</button>
+                            <button type="submit" class="site-btn" id="order-item">
+                                PLACE ORDER
+                                <span class="button-spinner" id="button-spinner"></span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -38,3 +39,31 @@
 </section>
     
 @endsection
+
+@push('css')
+    <style>
+        /* Spinner inside button */
+        .button-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Disable button during loading */
+        .disable-button {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
+@endpush
