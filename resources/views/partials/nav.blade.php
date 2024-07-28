@@ -7,8 +7,8 @@
             <a href="{{ route('wishlist') }}"><img src="img/icon/heart.png" alt=""></a>
         </div>
         <div class="offcanvas__cart__item">
-            <a href="{{ route('cart') }}"><img src="img/icon/cart.png" alt=""> <span class="cart_num">0</span></a>
-            <div class="cart__price">Cart: <span class="cart_price">€0.00</span></div>
+            <a href="{{ route('cart') }}"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+            <div class="cart__price">Cart: <span>€0.00</span></div>
         </div>
     </div>
     <div class="offcanvas__logo">
@@ -37,7 +37,7 @@
                                                 <li><a href="" class="text-white">Dashboard</a></li>
                                             @endif
                                             <li><a href="" class="text-white">Profile</a></li>
-                                            <li><a href="" class="text-white">Oders</a></li>
+                                            <li><a href="" class="text-white">Puchases</a></li>
                                         </ul>
                                     </li>
                                     <li>
@@ -65,7 +65,7 @@
                                 <a href="{{ route('wishlist') }}"><img src="{{ asset('img/icon/heart.png') }}" alt=""></a>
                             </div>
                             <div class="header__top__right__cart">
-                                <a href="{{ route('cart') }}"><img src="{{ asset('img/icon/cart.png') }}" alt=""> <span class="cart_num">0</span></a>
+                                <a href="{{ route('cart') }}"><img src="{{ asset('img/icon/cart.png') }}" alt=""> <span>0</span></a>
                                 <div class="cart__price">Cart: <span class="cart_price">€0.00</span></div>
                             </div>
                         </div>
@@ -88,6 +88,16 @@
                                 href="{{ route('recipes') }}">Recipes</a></li>
                         <li class="{{ request()->routeIs('chefs') ? 'active' : '' }}"><a
                                 href="{{ route('chefs') }}">Chefs</a></li>
+                        {{-- <li><a href="#">Pages</a>
+                            <ul class="dropdown">
+                                <li><a href="./shop-details.html">Shop Details</a></li>
+                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                                <li><a href="./checkout.html">Check Out</a></li>
+                                <li><a href="./wisslist.html">Wisslist</a></li>
+                                <li><a href="./Class.html">Class</a></li>
+                                <li><a href="./blog-details.html">Blog Details</a></li>
+                            </ul>
+                        </li> --}}
                         <li class="{{ request()->routeIs('blog') ? 'active' : '' }}"><a
                                 href="{{ route('blog') }}">Blog</a></li>
                         <li class="{{ request()->routeIs('contact') ? 'active' : '' }}"><a

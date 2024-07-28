@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const addToCartButtons = document.querySelectorAll('.cart_add a');
-    const cartCountElement = document.querySelector('.cart_num');
+    const cartCountElement = document.querySelector('.header__top__right__cart a span');
     const cartPriceElement = document.querySelector('.cart_price');
 
     function updateCartInfo() {
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Show spinner and disable the button
             buttonSpinner.style.display = 'inline-block';
             placeOrderButton.classList.add('disable-button');
-
+            
             try {
                 const response = await fetch('/checkout', {
                     method: 'POST',
@@ -222,10 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
 
-                // Hide spinner and enable the button
-                buttonSpinner.style.display = 'none';
-                placeOrderButton.classList.remove('disable-button');
-
                 if (data.status === 'success' && data.redirect_url) {
                     window.location.href = data.redirect_url;
                     localStorage.removeItem('cart'); // Clear the cart on the frontend
@@ -235,10 +231,6 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (error) {
                 console.error('Error:', error);
                 alert('Something went wrong. Please try again.');
-
-                // Hide spinner and enable the button in case of an error
-                buttonSpinner.style.display = 'none';
-                placeOrderButton.classList.remove('disable-button');
             }
         });
     }
