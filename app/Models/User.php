@@ -68,6 +68,11 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
     // Define a scope for chefs
     public function scopeChefs($query)
     {

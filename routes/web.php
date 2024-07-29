@@ -35,7 +35,9 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/cart', 'cart')->name('cart');
     Route::get('/checkout', 'checkout')->name('checkout')->middleware('auth');
-    Route::get('/wishlist', 'wishlist')->name('wishlist');
+    Route::get('/wishlist', 'wishlist')->name('wishlist')->middleware('auth');
+    Route::post('/wishlist', 'storeWishlist')->name('wishlist.store')->middleware('auth');
+    Route::delete('/wishlist/remove', 'removeWishList')->name('wishlist.remove')->middleware('auth');
     Route::get('/chefs', 'chefs')->name('chefs');
 });
 

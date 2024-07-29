@@ -9,4 +9,5 @@
 <script src="{{ asset('js/jquery.nicescroll.min.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="{{ asset('js/cart.js') }}"></script>
+<script src="{{ asset('js/wishlist.js') }}"></script>
 @stack('js')

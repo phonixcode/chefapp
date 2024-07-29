@@ -52,7 +52,9 @@
                         </ul>
                         <div class="product__details__option">
                             <a href="{{ route('cart') }}" class="primary-btn">Add to cart</a>
-                            <a href="{{ route('wishlist') }}" class="heart__btn"><span class="icon_heart_alt"></span></a>
+                            @auth
+                            <a href="javascript:void(0);" class="heart__btn" data-id="{{ $recipe->id }}"><span class="icon_heart_alt"></span></a>
+                            @endauth
                         </div>
                     </div>
                 </div>

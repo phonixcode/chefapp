@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Recipe;
 use App\Models\Category;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -134,6 +136,53 @@ class FrontendController extends Controller
 
     public function wishlist()
     {
-        return view('user.wishlist');
+        $user = Auth::user();
+        $wishlistItems = $user->wishlist()->with('recipe.images')->get();
+        // return $wishlistItems;
+        return view('user.wishlist', compact('wishlistItems'));
+    }
+
+    public function storeWishlist(Request $request)
+    {
+        $request->validate([
+            'recipe_id' => 'required|exists:recipes,id',
+        ]);
+
+        $userId = auth()->id();
+        $recipeId = $request->recipe_id;
+
+        // Check if the item is already in the wishlist
+        $existingWishlistItem = Wishlist::where('user_id', $userId)->where('recipe_id', $recipeId)->first();
+
+        if ($existingWishlistItem) {
+            return response()->json(['success' => false, 'message' => 'Recipe already in wishlist']);
+        }
+
+        // Add item to the wishlist
+        $wishlist = new Wishlist();
+        $wishlist->user_id = $userId;
+        $wishlist->recipe_id = $recipeId;
+        $wishlist->save();
+
+        return response()->json(['success' => true, 'message' => 'Recipe added to wishlist']);
+    }
+
+    public function removeWishList(Request $request)
+    {
+        $request->validate([
+            'recipe_id' => 'required|exists:wishlists,id',
+        ]);
+
+        $wishlistItem = Wishlist::find($request->recipe_id);
+
+        // Ensure the item belongs to the authenticated user
+        if ($wishlistItem->user_id !== Auth::id()) {
+            return response()->json(['success' => false, 'message' => 'Unauthorized'], 403);
+        }
+
+        // Remove item from wishlist
+        $wishlistItem->delete();
+
+        return response()->json(['success' => true]);
     }
 }

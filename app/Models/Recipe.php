@@ -44,6 +44,11 @@ class Recipe extends Model
     //     return $this->hasMany(Purchase::class);
     // }
 
+    public function wishlistedBy()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
     protected function getSlugSource()
     {
         return $this->title; // Generate slug based on recipe title
