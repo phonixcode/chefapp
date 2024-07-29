@@ -34,7 +34,7 @@
                                     <li>{{ auth()->user()->name }} <span class="arrow_carrot-down"></span>
                                         <ul>
                                             @if ($role == 'chef' || $role == 'admin')
-                                                <li><a href="" class="text-white">Dashboard</a></li>
+                                                <li><a href="{{ route('dashboard') }}" class="text-white">Dashboard</a></li>
                                             @endif
                                             <li><a href="{{ route('user.profile') }}" class="text-white">Profile</a></li>
                                             <li><a href="{{ route('user.orders') }}" class="text-white">Orders</a></li>

@@ -18,11 +18,6 @@
     <p>Total Price: €{{ $order->total_price }}</p>
 
     <p>You can download your recipe details as PDFs from the links below:</p>
-    {{-- <ul>
-        @foreach($pdfPaths as $path)
-            <li><a href="{{ route('order.download', ['path' => $path]) }}">Download Recipe PDF</a></li>
-        @endforeach
-    </ul> --}}
     <ul>
         @foreach($order->items as $item)
             @php
@@ -32,6 +27,6 @@
         @endforeach
     </ul>
 
-    <p>Best regards,<br>The ChefApp Team</p>
+    <p>Best regards,<br>The Culinary Crafts Team</p>
 </body>
 </html>

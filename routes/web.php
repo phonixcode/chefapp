@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
@@ -58,5 +59,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/user-profile-update', 'user_info_update')->name('user.profile.update');
         Route::post('/user-password', 'user_password_update')->name('user.password.update');
         Route::get('/user-orders', 'user_orders')->name('user.orders');
+    });
+
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('dashboard', 'dashboard')->name('dashboard');
     });
 });
