@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
@@ -61,7 +63,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/user-orders', 'user_orders')->name('user.orders');
     });
 
-    Route::controller(DashboardController::class)->group(function () {
-        Route::get('dashboard', 'dashboard')->name('dashboard');
+    Route::middleware(['check.role'])->group(function () {
+
+        Route::controller(DashboardController::class)->group(function () {
+            Route::get('dashboard', 'dashboard')->name('dashboard');
+        });
+
+        Route::resource('recipe-categories', CategoryController::class);
+        Route::resource('recipe-items', RecipeController::class);
+
     });
 });

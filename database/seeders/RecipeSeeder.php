@@ -238,15 +238,15 @@ class RecipeSeeder extends Seeder
 
         // Attach multiple images
         $images = [
-            ['image_path' => '1.jpg'],
-            ['image_path' => '2.jpg'],
-            ['image_path' => '3.jpg'],
-            ['image_path' => '4.jpg'],
-            ['image_path' => '5.jpg'],
-            ['image_path' => '6.jpg'],
-            ['image_path' => '7.jpg'],
-            ['image_path' => '8.jpg'],
-            ['image_path' => '9.jpg'],
+            ['image_path' => 'recipe_images/1.jpg'],
+            ['image_path' => 'recipe_images/2.jpg'],
+            ['image_path' => 'recipe_images/3.jpg'],
+            ['image_path' => 'recipe_images/4.jpg'],
+            ['image_path' => 'recipe_images/5.jpg'],
+            ['image_path' => 'recipe_images/6.jpg'],
+            ['image_path' => 'recipe_images/7.jpg'],
+            ['image_path' => 'recipe_images/8.jpg'],
+            ['image_path' => 'recipe_images/9.jpg'],
         ];
 
         // Create recipes

@@ -19,10 +19,13 @@ class Recipe extends Model
         'description', 
         'long_description', 
         'additional_description', 
+        'recipe_information',
         'price', 
         'label', 
         'sku',
     ];
+
+    protected $appends = ['image_urls'];
 
     public function user()
     {
@@ -67,5 +70,10 @@ class Recipe extends Model
             ->inRandomOrder()
             ->limit($limit)
             ->get();
+    }
+
+    public function getImageUrlsAttribute()
+    {
+        return $this->images->pluck('url');
     }
 }

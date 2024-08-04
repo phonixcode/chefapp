@@ -70,7 +70,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="product__item" data-id="{{ $item->id }}">
                         <div class="product__item__pic set-bg"
-                            data-setbg="{{ asset('img/shop/' . $item->images[0]->image_path) }}">
+                            data-setbg="{{ $item->image_urls[0] }}">
                             <div class="product__label">
                                 <span>{{ $item->category->name }}</span>
                             </div>

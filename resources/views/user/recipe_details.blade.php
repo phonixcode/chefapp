@@ -27,14 +27,13 @@
                 <div class="col-lg-6">
                     <div class="product__details__img">
                         <div class="product__details__big__img">
-                            <img class="big_img" src="{{ asset('img/shop/' . $recipe->images[0]->image_path) }}"
+                            <img class="big_img" src="{{ $recipe->image_urls[0] }}"
                                 alt="">
                         </div>
                         <div class="product__details__thumb">
-                            @foreach ($recipe->images as $key => $image)
+                            @foreach ($recipe->image_urls as $key => $image)
                                 <div class="pt__item{{ $key === 0 ? ' active' : '' }}">
-                                    <img data-imgbigurl="{{ asset('img/shop/' . $image->image_path) }}"
-                                        src="{{ asset('img/shop/' . $image->image_path) }}" alt="">
+                                    <img data-imgbigurl="{{ $image }}" src="{{ $image }}" alt="">
                                 </div>
                             @endforeach
                         </div>
@@ -45,7 +44,6 @@
                         <div class="product__label">{{ $recipe->category->name }}</div>
                         <h4>{{ $recipe->title }}</h4>
                         <h5>€{{ $recipe->price }}</h5>
-                        <p>{{ $recipe->description }}</p>
                         <ul>
                             <li>SKU: <span>{{ $recipe->sku }}</span></li>
                             <li>Category: <span>{{ $recipe->category->name }}</span></li>
@@ -77,7 +75,7 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col-lg-8">
                                     <p>
-                                        {{ $recipe->long_description }}
+                                        {!! $recipe->description !!}
                                     </p>
                                 </div>
                             </div>
@@ -86,7 +84,7 @@
                             <div class="row d-flex justify-content-center">
                                 <div class="col-lg-8">
                                     <p>
-                                        {{ $recipe->additional_description }}
+                                        {!! $recipe->additional_description !!}
                                     </p>
                                 </div>
                             </div>
@@ -125,7 +123,7 @@
                         <div class="col-lg-3">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg"
-                                    data-setbg="{{ asset('img/shop/' . $item->images[0]->image_path) }}">
+                                    data-setbg="{{ $item->image_urls[0] }}">
                                     <div class="product__label">
                                         <span>{{ $item->category->name }}</span>
                                     </div>
