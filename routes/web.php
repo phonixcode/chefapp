@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\RecipeController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\RecipeController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/recipes/{slug}', 'recipeDetails')->name('recipes.details');
     Route::post('/recipe-filter', 'recipeFilter')->name('recipes.filter');
     Route::get('/blog', 'blog')->name('blog');
+    Route::get('/blog/{slug}', 'blogDetails')->name('blog.details');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/cart', 'cart')->name('cart');
     Route::get('/checkout', 'checkout')->name('checkout')->middleware('auth');
@@ -71,6 +73,6 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('recipe-categories', CategoryController::class);
         Route::resource('recipe-items', RecipeController::class);
-
+        Route::resource('blog-items', BlogController::class);
     });
 });

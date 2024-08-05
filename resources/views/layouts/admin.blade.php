@@ -110,11 +110,11 @@
                                     <li class="{{ request()->routeIs('recipe-items.index') ? 'active' : '' }}"> <a href="{{ route('recipe-items.index') }}">List Recipes</a> </li>
                                 </ul>
                             </li>
-                            <li>
+                            <li class="{{ request()->routeIs('blog-items*') ? 'active' : '' }}">
                                 <a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-list"></i><span class="nav-title">Blog Management</span></a>
                                 <ul aria-expanded="false">
-                                    <li> <a href="javascript: void(0);">Create Blog</a> </li>
-                                    <li> <a href="javascript: void(0);">List Blogs</a> </li>
+                                    <li class="{{ request()->routeIs('blog-items.create') ? 'active' : '' }}"> <a href="{{ route('blog-items.create') }}">Create Blog</a> </li>
+                                    <li class="{{ request()->routeIs('blog-items.index') ? 'active' : '' }}"> <a href="{{ route('blog-items.index') }}">List Blogs</a> </li>
                                 </ul>
                             </li>
                             <li>

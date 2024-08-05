@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\User;
 use App\Models\Recipe;
 use App\Models\Category;
 use App\Models\Wishlist;
+use App\Repository\BlogRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -121,7 +123,17 @@ class FrontendController extends Controller
 
     public function blog()
     {
-        return view('user.blog');
+        $blogs = Blog::query();
+
+        $blog_lists = $blogs->with('user')->get();
+        return view('user.blog', compact('blog_lists'));
+    }
+
+    public function blogDetails($slug)
+    {
+        $blog = Blog::getBlogBySlug($slug);
+
+        return view('user.blog_details', compact('blog'));
     }
 
     public function cart()
