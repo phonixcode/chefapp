@@ -10,20 +10,10 @@
             <div class="row">
                 <div class="col-lg-7 col-md-7">
                     <div class="shop__option__search">
-                        <form action="#">
-                            <input type="text" placeholder="Search">
+                        <form action="" method="get">
+                            <input type="text" placeholder="Search" name="chef">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-md-5">
-                    <div class="shop__option__right">
-                        <select>
-                            <option value="">Default sorting</option>
-                            <option value="">A to Z</option>
-                            <option value="">1 - 8</option>
-                            <option value="">Name</option>
-                        </select>
                     </div>
                 </div>
             </div>
@@ -31,7 +21,7 @@
         <div class="row">
             @foreach ($chefs as $item)
             <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="team__item set-bg" data-setbg="{{ asset('img/team/'.$item->photo) }}">
+                <div class="team__item set-bg" data-setbg="{{ $item->photo != NULL ? $item->photo_url : asset('img/chef-profile.jpg') }}">
                     <div class="team__item__text">
                         <h6>{{ $item->name }}</h6>
                         <span>Chef</span>
@@ -53,11 +43,6 @@
                         {{ $chefs->links('vendor.pagination.custom-pagination') }}
                     </div>
                 </div>
-                {{-- <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="shop__last__text">
-                        <p>Showing {{ $chefs->firstItem() }}-{{ $chefs->lastItem() }} of {{ $chefs->total() }} results</p>
-                    </div>
-                </div> --}}
             </div>
         </div>
     </div>

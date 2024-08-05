@@ -14,11 +14,11 @@
                     <div class="testimonial__item">
                         <div class="testimonial__author">
                             <div class="testimonial__author__pic">
-                                <img src="img/testimonial/ta-1.jpg" alt="">
+                                <img src="{{ asset('img/testimonial/ta-1.jpg') }}" alt="">
                             </div>
                             <div class="testimonial__author__text">
-                                <h5>Kerry D.Silva</h5>
-                                <span>New york</span>
+                                <h5>Lovely</h5>
+                                <span>Limerick</span>
                             </div>
                         </div>
                         <div class="rating">
@@ -28,19 +28,18 @@
                             <span class="icon_star"></span>
                             <span class="icon_star-half_alt"></span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
+                        <p>Culinary Crafts has transformed my cooking experience! The interactive classes with top chefs are fantastic, and I've learned so many new techniques. The community is incredibly supportive and inspiring. I love discovering new recipes and connecting with fellow foodies. Highly recommended!</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="testimonial__item">
                         <div class="testimonial__author">
                             <div class="testimonial__author__pic">
-                                <img src="img/testimonial/ta-2.jpg" alt="">
+                                <img src="{{ asset('img/blog/details/blog-author.jpg') }}" alt="">
                             </div>
                             <div class="testimonial__author__text">
-                                <h5>Kerry D.Silva</h5>
-                                <span>New york</span>
+                                <h5>Zafi Hasan</h5>
+                                <span>Limerick</span>
                             </div>
                         </div>
                         <div class="rating">
@@ -50,19 +49,18 @@
                             <span class="icon_star"></span>
                             <span class="icon_star-half_alt"></span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
+                        <p>This app is a game-changer for anyone passionate about food. The recipe library is extensive, and the ingredient marketplace has everything I need. The virtual culinary events are a highlight, offering unique insights from renowned chefs. Culinary Crafts is my go-to resource for all things culinary</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="testimonial__item">
                         <div class="testimonial__author">
                             <div class="testimonial__author__pic">
-                                <img src="img/testimonial/ta-1.jpg" alt="">
+                                <img src="{{ asset('img/testimonial/ta-1.jpg') }}" alt="">
                             </div>
                             <div class="testimonial__author__text">
                                 <h5>Ophelia Nunez</h5>
-                                <span>London</span>
+                                <span>Dublin</span>
                             </div>
                         </div>
                         <div class="rating">
@@ -72,19 +70,18 @@
                             <span class="icon_star"></span>
                             <span class="icon_star-half_alt"></span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
+                        <p>Culinary Crafts is a culinary treasure trove! The variety of recipes and cooking classes have elevated my home cooking to a whole new level. The app is user-friendly, and I love being able to interact with chefs and other food lovers. It’s my favorite app for all things food!</p>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="testimonial__item">
                         <div class="testimonial__author">
                             <div class="testimonial__author__pic">
-                                <img src="img/testimonial/ta-2.jpg" alt="">
+                                <img src="{{ asset('img/testimonial/ta-2.jpg') }}" alt="">
                             </div>
                             <div class="testimonial__author__text">
                                 <h5>Kerry D.Silva</h5>
-                                <span>New york</span>
+                                <span>Dublin</span>
                             </div>
                         </div>
                         <div class="rating">
@@ -94,52 +91,7 @@
                             <span class="icon_star"></span>
                             <span class="icon_star-half_alt"></span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="testimonial__item">
-                        <div class="testimonial__author">
-                            <div class="testimonial__author__pic">
-                                <img src="img/testimonial/ta-1.jpg" alt="">
-                            </div>
-                            <div class="testimonial__author__text">
-                                <h5>Ophelia Nunez</h5>
-                                <span>London</span>
-                            </div>
-                        </div>
-                        <div class="rating">
-                            <span class="icon_star"></span>
-                            <span class="icon_star"></span>
-                            <span class="icon_star"></span>
-                            <span class="icon_star"></span>
-                            <span class="icon_star-half_alt"></span>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="testimonial__item">
-                        <div class="testimonial__author">
-                            <div class="testimonial__author__pic">
-                                <img src="img/testimonial/ta-2.jpg" alt="">
-                            </div>
-                            <div class="testimonial__author__text">
-                                <h5>Kerry D.Silva</h5>
-                                <span>New york</span>
-                            </div>
-                        </div>
-                        <div class="rating">
-                            <span class="icon_star"></span>
-                            <span class="icon_star"></span>
-                            <span class="icon_star"></span>
-                            <span class="icon_star"></span>
-                            <span class="icon_star-half_alt"></span>
-                        </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua viverra lacus vel facilisis.</p>
+                        <p>As a professional chef, I find Culinary Crafts to be an invaluable resource. The app offers a seamless way to connect with a broader audience and share my expertise. The virtual events are well-organized and engaging, and the network of fellow chefs and foodies keeps me inspired. A must-have for anyone serious about cooking!</p>
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@
         <div class="row">
             @foreach ($chefs as $item)
             <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="team__item set-bg" data-setbg="{{ asset('img/team/'.$item->photo) }}">
+                <div class="team__item set-bg" data-setbg="{{ $item->photo != NULL ? $item->photo_url : asset('img/chef-profile.jpg') }}">
                     <div class="team__item__text">
                         <h6>{{ $item->name }}</h6>
                         <span>Chef</span>

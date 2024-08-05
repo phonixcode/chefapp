@@ -117,21 +117,36 @@ class FrontendController extends Controller
 
     public function chefs()
     {
-        $chefs = User::chefs()->latest()->paginate(12);
+        $chefs = User::query();
+
+        if(!empty($_GET['chef'])){
+            $chefs = $chefs->where('name', 'LIKE', '%' . $_GET['chef'] . '%');
+        } 
+
+        $chefs = $chefs->chefs()->latest()->paginate(12);
         return view('user.chef', compact('chefs'));
     }
 
     public function blog()
     {
-        $blogs = Blog::query();
+        $blog_lists = Blog::query();
 
-        $blog_lists = $blogs->with('user')->get();
-        return view('user.blog', compact('blog_lists'));
+        if(!empty($_GET['keyword'])){
+            $blog_lists = $blog_lists->where('title', 'LIKE', '%' . $_GET['keyword'] . '%');
+        } 
+
+        $blog_lists = $blog_lists->with('user')->latest()->paginate(4);
+
+        $popular_blogs = Blog::orderBy('views', 'desc')->limit(4)->get();
+        return view('user.blog', compact('blog_lists', 'popular_blogs'));
     }
 
     public function blogDetails($slug)
     {
         $blog = Blog::getBlogBySlug($slug);
+
+        $blog->views += 1;
+        $blog->save();
 
         return view('user.blog_details', compact('blog'));
     }

@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function () {
 
         Route::controller(DashboardController::class)->group(function () {
             Route::get('dashboard', 'dashboard')->name('dashboard');
+            Route::get('profile', 'profile')->name('profile');
+            Route::post('profile', 'profileSubmit')->name('profile.submit');
         });
 
         Route::resource('recipe-categories', CategoryController::class);

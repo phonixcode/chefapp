@@ -4,8 +4,9 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="footer__widget">
                     <h6>About</h6>
-                    <p class="text-white">Lorem ipsum dolor amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua.</p>
+                    <p class="text-white">
+                        Welcome to Culinary Crafts, where the passion for food and the art of cooking come together to create unforgettable experiences. Our mission is to bridge the gap between food enthusiasts and world-renowned chefs, fostering a vibrant community that celebrates culinary creativity and excellence.
+                    </p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6">
@@ -13,8 +14,7 @@
                     <div class="footer__logo">
                         <a href="#"><img src="{{ asset('img/logo.png') }}" alt="" width="200"></a>
                     </div>
-                    <p>Lorem ipsum dolor amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore dolore magna aliqua.</p>
+                    
                     <div class="footer__social">
                         <a href="#"><i class="fa fa-facebook"></i></a>
                         <a href="#"><i class="fa fa-twitter"></i></a>

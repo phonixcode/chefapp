@@ -3,16 +3,16 @@
 <div class="offcanvas-menu-wrapper">
     <div class="offcanvas__cart">
         <div class="offcanvas__cart__links">
-            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-            <a href="{{ route('wishlist') }}"><img src="img/icon/heart.png" alt=""></a>
+            <a href="#" class="search-switch"><img src="{{ asset('img/icon/search.png') }}" alt=""></a>
+            <a href="{{ route('wishlist') }}"><img src="{{ asset('img/icon/heart.png') }}" alt=""></a>
         </div>
         <div class="offcanvas__cart__item">
-            <a href="{{ route('cart') }}"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
+            <a href="{{ route('cart') }}"><img src="{{ asset('img/icon/cart.png') }}" alt=""> <span>0</span></a>
             <div class="cart__price">Cart: <span>€0.00</span></div>
         </div>
     </div>
     <div class="offcanvas__logo">
-        <a href="{{ route('home') }}"><img src="img/logo.png" alt=""></a>
+        <a href="{{ route('home') }}"><img src="{{ asset('img/logo.png') }}" alt=""></a>
     </div>
     <div id="mobile-menu-wrap"></div>
 

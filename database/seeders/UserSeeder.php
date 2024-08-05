@@ -41,7 +41,6 @@ class UserSeeder extends Seeder
             'name' => 'Chef Vero1',
             'email' => 'vero1.chef@example.com',
             'password' => bcrypt('password'),
-            'photo' => 'team-1.jpg'
         ]);
 
         // Assign a role to the user
@@ -52,7 +51,6 @@ class UserSeeder extends Seeder
             'name' => 'Chef Vero2',
             'email' => 'vero2.chef@example.com',
             'password' => bcrypt('password'),
-            'photo' => 'team-2.jpg'
         ]);
 
         // Assign a role to the user
@@ -63,7 +61,6 @@ class UserSeeder extends Seeder
             'name' => 'Chef Vero3',
             'email' => 'vero3.chef@example.com',
             'password' => bcrypt('password'),
-            'photo' => 'team-3.jpg'
         ]);
 
         // Assign a role to the user
@@ -74,7 +71,6 @@ class UserSeeder extends Seeder
             'name' => 'Chef Vero4',
             'email' => 'vero4.chef@example.com',
             'password' => bcrypt('password'),
-            'photo' => 'team-4.jpg'
         ]);
 
         // Assign a role to the user
