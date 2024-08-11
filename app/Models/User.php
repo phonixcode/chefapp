@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Carbon\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
@@ -23,15 +24,19 @@ class User extends Authenticatable
         'email',
         'photo',
         'password',
-        'address', 
-        'city', 
-        'state', 
-        'restaurant_name', 
-        'restaurant_address', 
-        'restaurant_city', 
-        'restaurant_state', 
-        'speciality', 
+        'address',
+        'city',
+        'state',
+        'restaurant_name',
+        'restaurant_address',
+        'restaurant_city',
+        'restaurant_state',
+        'specialty',
         'experience',
+        'is_2fa_enabled',
+        'two_factor_code',
+        'two_factor_expires_at',
+        'revenue',
     ];
 
     /**
@@ -52,6 +57,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        // 'is_2fa_enabled' => 'boolean',
     ];
 
     protected $appends = ['photo_url'];
@@ -76,6 +82,17 @@ class User extends Authenticatable
         return $this->hasMany(Wishlist::class);
     }
 
+    // public function getIs2faEnabledAttribute()
+    // {
+    //     return !is_null($this->two_factor_code);
+    // }
+
+    // public function setIs2FaEnabledAttribute($value)
+    // {
+    //     $this->attributes['is_2fa_enabled'] = (bool) $value;
+    // }
+
+
     // Define a scope for chefs
     public function scopeChefs($query)
     {
@@ -91,6 +108,13 @@ class User extends Authenticatable
         })->inRandomOrder()->limit($limit);
     }
 
+    public function scopeUsers($query)
+    {
+        return $query->whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'admin');
+        });
+    }
+
     // Accessor to get role names
     public function getRoleNamesAttribute()
     {
@@ -100,5 +124,10 @@ class User extends Authenticatable
     public function getPhotoUrlAttribute()
     {
         return Storage::disk('public')->url($this->photo);
+    }
+
+    public function getFormattedCreatedAtAttribute()
+    {
+        return Carbon::parse($this->created_at)->format('d M Y');
     }
 }

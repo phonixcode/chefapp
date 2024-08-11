@@ -48,14 +48,14 @@
                     <form action="{{ route('profile.submit') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="speciality">Speciality</label>
-                            <input type="text" class="form-control" id="speciality" placeholder="" name="speciality"
-                                value="{{ auth()->user()->speciality }}">
+                            <label for="specialty">Specialty</label>
+                            <input type="text" class="form-control" id="specialty" placeholder="" name="specialty"
+                                value="{{ auth()->user()->specialty }}">
                         </div>   
 
                         <div class="form-group">
                             <label for="experience">Experience</label>
-                            <input type="number" class="form-control" id="experience" placeholder="" name="experience"
+                            <input type="text" class="form-control" id="experience" placeholder="" name="experience"
                                 value="{{ auth()->user()->experience }}">
                         </div>   
 

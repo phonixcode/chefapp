@@ -4,16 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $users = User::users()->latest()->paginate(10);
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -21,7 +30,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.user.create');
     }
 
     /**
@@ -37,7 +46,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.user.show', compact('user'));
     }
 
     /**
@@ -61,6 +70,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        if ($user) {
+            if ($user->photo != null) $this->userRepository->deleteFile($user->photo);
+            $user->delete();            
+            return redirect()->back()->with('success', 'User deleted successfully');
+        }
+
+        return redirect()->back()->with('error', 'User not found');
     }
 }

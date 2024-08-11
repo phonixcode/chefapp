@@ -15,7 +15,7 @@
                             </div>
                         </div>
                         <div class="align-self-center ml-auto">
-                            <h3 class="f-26 mb-0"><span class="count">0</span></h3>
+                            <h3 class="f-26 mb-0"><span class="count">{{ $recipes }}</span></h3>
                             <p class="text-muted mb-0">Recipes</p>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="align-self-center ml-auto">
-                            <h3 class="f-26 mb-0"><span class="count">0</span></h3>
+                            <h3 class="f-26 mb-0"><span class="count">{{ $orders }}</span></h3>
                             <p class="text-muted mb-0">Orders</p>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="align-self-center ml-auto">
-                            <h3 class="f-26 mb-0"><span class="count">0</span></h3>
+                            <h3 class="f-26 mb-0"><span class="count">{{ $blogs }}</span></h3>
                             <p class="text-muted mb-0">Blog</p>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                             <div id="datingdemo8"></div>
                         </div>
                         <div class="align-self-center ml-auto">
-                            <h3 class="f-26 mb-0"><span class="count">0</span></h3>
+                            <h3 class="f-26 mb-0"><span class="count">€{{ number_format($revenues,2) }}</span></h3>
                             <p class="text-muted mb-0">Revenue</p>
                         </div>
                     </div>
@@ -72,6 +72,7 @@
             </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col-xxl-8 m-b-30">
             <div class="card card-statistics h-100 mb-0">
@@ -94,6 +95,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-xxl-4 m-b-30">
             <div class="card card-statistics h-100 mb-0">
                 <div class="card-header">
@@ -102,7 +104,7 @@
                 <div class="card-body">
                     <div class="mb-1">
                         <div class="d-flex">
-                            <p>Positive</p>
+                            <p>Successful</p>
                             <h5 class="text-muted ml-auto mb-0">4251</h5>
                         </div>
                         <div class="progress progress-sm m-b-10" style="height: 5px;">
@@ -112,7 +114,7 @@
                     </div>
                     <div class="mb-1">
                         <div class="d-flex">
-                            <p>Negative</p>
+                            <p>Pending</p>
                             <h5 class="text-muted ml-auto mb-0">1459</h5>
                         </div>
                         <div class="progress progress-sm m-b-10" style="height: 5px;">

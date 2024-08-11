@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->boolean('is_2fa_enabled')->default(true);
+            $table->string('two_factor_code')->nullable();
+            $table->timestamp('two_factor_expires_at')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
@@ -26,8 +29,9 @@ return new class extends Migration
             $table->string('restaurant_address')->nullable();
             $table->string('restaurant_city')->nullable();
             $table->string('restaurant_state')->nullable();
-            $table->string('speciality')->nullable();
-            $table->integer('experience')->nullable();
+            $table->string('specialty')->nullable();
+            $table->string('experience')->nullable();
+            $table->decimal('revenue', 8, 2)->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

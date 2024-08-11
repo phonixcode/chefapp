@@ -41,7 +41,7 @@ class RegisterRequest extends FormRequest
             'restaurant_address' => 'nullable|string|max:255',
             'restaurant_city' => 'nullable|string|max:255',
             'restaurant_state' => 'nullable|string|max:255',
-            'speciality' => 'nullable|string|max:255',
+            'specialty' => 'nullable|string|max:255',
             'experience' => 'nullable|integer|min:0',
         ];
     }

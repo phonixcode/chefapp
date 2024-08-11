@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Repository\BlogRepository;
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 
 class BlogController extends Controller
 {
@@ -20,7 +21,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = $this->blogRepository->lists(10);
+        $blogs = Blog::where('user_id', auth()->id())->paginate(10);
         return view('admin.blog.index', compact('blogs'));
     }
 

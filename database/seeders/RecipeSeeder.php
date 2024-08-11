@@ -27,7 +27,7 @@ class RecipeSeeder extends Seeder
         // sample recipes data
         $recipes = [
             [
-                'title' => 'Shawama',
+                'title' => 'Shawarma',
                 'description' => 'Description of Shawarma',
                 'price' => 10.99,
                 'label' => 'Lunch',

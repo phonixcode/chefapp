@@ -71,12 +71,12 @@
                                 <input type="text" id="restaurant_state" name="restaurant_state" placeholder="Restaurant State" value="{{ old('restaurant_state') }}">
                             </div>
                             <div class="col-lg-6 chef-field" style="display: none;">
-                                <label for="speciality">Speciality</label>
-                                <input type="text" id="speciality" name="speciality" placeholder="Speciality" value="{{ old('speciality') }}">
+                                <label for="specialty">Specialty</label>
+                                <input type="text" id="specialty" name="specialty" placeholder="specialty" value="{{ old('specialty') }}">
                             </div>
                             <div class="col-lg-6 chef-field" style="display: none;">
                                 <label for="experience">Years of Experience</label>
-                                <input type="number" id="experience" name="experience" placeholder="Years of Experience" value="{{ old('experience') }}">
+                                <input type="text" id="experience" name="experience" placeholder="Years of Experience" value="{{ old('experience') }}">
                             </div>
 
                             <div class="col-lg-12">

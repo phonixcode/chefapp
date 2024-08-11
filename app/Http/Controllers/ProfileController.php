@@ -60,4 +60,13 @@ class ProfileController extends Controller
 
         return view('user.profile.orders', compact('orders'));
     }
+
+    public function update2fa(Request $request)
+    {
+        $user = auth()->user();
+        $user->is_2fa_enabled = $request->input('is_2fa_enabled');
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
 }

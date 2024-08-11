@@ -1,3 +1,6 @@
+@php
+    $role = implode(', ', auth()->user()->role_names);
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +37,7 @@
                     <!-- begin navbar-header -->
                     <div class="navbar-header d-flex align-items-center">
                         <a href="javascript:void:(0)" class="mobile-toggle"><i class="ti ti-align-right"></i></a>
-                        <a class="navbar-brand" href="{{ route('dashboard') }}">
+                        <a class="navbar-brand" href="{{ route('home') }}">
                             <img src="{{ asset('img/logo.png') }}" class="img-fluid logo-desktop" alt="logo" />
                             <img src="{{ asset('img/logo.png') }}" class="img-fluid logo-mobile" alt="logo" />
                         </a>
@@ -60,8 +63,12 @@
                                                     <h4 class="text-white mb-0">{{ auth()->user()->name }}</h4>
                                                     <small class="text-white">{{ auth()->user()->email }}</small>
                                                 </div>
-                                                <a href="#" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
+                                                <a href="{{ route('logout') }}"onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
                                                                 class="zmdi zmdi-power"></i></a>
+
+                                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                                    @csrf
+                                                                </form>
                                             </div>
                                         </div>
                                         <div class="p-4">
@@ -117,32 +124,20 @@
                                     <li class="{{ request()->routeIs('blog-items.index') ? 'active' : '' }}"> <a href="{{ route('blog-items.index') }}">List Blogs</a> </li>
                                 </ul>
                             </li>
-                            <li>
-                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-list"></i><span class="nav-title">User Management</span></a>
-                                <ul aria-expanded="false">
-                                    <li> <a href="javascript: void(0);">Create User</a> </li>
-                                    <li> <a href="javascript: void(0);">List Users</a> </li>
-                                </ul>
-                            </li>
-                            <li class="">
-                                <a href="" aria-expanded="false">
+                            <li class="{{ request()->routeIs('orders*') ? 'active' : '' }}">
+                                <a href="{{ route('orders') }}" aria-expanded="false">
                                     <i class="nav-icon ti ti-rocket"></i>
                                     <span class="nav-title">Orders</span>
                                 </a> 
                             </li>
-                            <li class="">
-                                <a href="" aria-expanded="false">
-                                    <i class="nav-icon ti ti-rocket"></i>
-                                    <span class="nav-title">Tickets</span>
+                            @if ($role == 'admin')
+                            <li class="{{ request()->routeIs('users*') ? 'active' : '' }}">
+                                <a href="{{ route('users.index') }}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-list"></i>
+                                    <span class="nav-title">User Management</span>
                                 </a> 
                             </li>
-                            <li>
-                                <a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-list"></i><span class="nav-title">Setting</span></a>
-                                <ul aria-expanded="false">
-                                    <li> <a href="javascript: void(0);">General Setting</a> </li>
-                                    <li> <a href="javascript: void(0);">Payment Method</a> </li>
-                                </ul>
-                            </li>
+                            @endif
                             <li class="sidebar-banner p-4 text-center m-3 d-block rounded">
                                 
                             </li>

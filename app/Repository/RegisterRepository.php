@@ -48,7 +48,7 @@ class RegisterRepository
             'restaurant_address' => $data['restaurant_address'],
             'restaurant_city' => $data['restaurant_city'],
             'restaurant_state' => $data['restaurant_state'],
-            'speciality' => $data['speciality'],
+            'specialty' => $data['specialty'],
             'experience' => $data['experience'],
         ]);
     }

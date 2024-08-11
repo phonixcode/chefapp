@@ -7,9 +7,10 @@ use App\Models\User;
 use App\Models\Recipe;
 use App\Models\Category;
 use App\Models\Wishlist;
-use App\Repository\BlogRepository;
 use Illuminate\Http\Request;
+use App\Repository\BlogRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class FrontendController extends Controller
 {
@@ -127,6 +128,13 @@ class FrontendController extends Controller
         return view('user.chef', compact('chefs'));
     }
 
+    public function chefDetails($id)
+    {
+        $chef = User::with('recipes')->findOrFail($id);
+
+        return view('user.chef_details', compact('chef'));
+    }
+
     public function blog()
     {
         $blog_lists = Blog::query();
@@ -211,5 +219,31 @@ class FrontendController extends Controller
         $wishlistItem->delete();
 
         return response()->json(['success' => true]);
+    }
+
+    public function sendEmail(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string',
+        ]);
+
+        // Prepare the email data
+        $emailData = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'userMessage' => $request->input('message'),
+        ];
+
+        // Send the email
+        Mail::send('emails.contact', $emailData, function ($message) use ($request) {
+            $message->to('admin@example.com')
+                ->subject('New Contact Message')
+                ->from($request->input('email'), $request->input('name'));
+        });
+
+        return response()->json(['success' => 'Message sent successfully!']);
     }
 }

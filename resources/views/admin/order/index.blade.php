@@ -8,7 +8,7 @@
             <!-- begin page title -->
             <div class="d-block d-sm-flex flex-nowrap align-items-center">
                 <div class="page-title mb-2 mb-sm-0">
-                    <h1>List Users</h1>
+                    <h1>List Orders</h1>
                 </div>
                 <div class="ml-auto d-flex align-items-center">
                     <nav>
@@ -16,7 +16,7 @@
                             <li class="breadcrumb-item">
                                 <a href="{{ route('dashboard') }}"><i class="ti ti-home"></i></a>
                             </li>
-                            <li class="breadcrumb-item active text-warning" aria-current="page">Users</li>
+                            <li class="breadcrumb-item active text-warning" aria-current="page">Orders</li>
                         </ol>
                     </nav>
                 </div>
@@ -29,55 +29,51 @@
     <div class="row">
         <div class="col-12 col-lg-12">
             <div class="card card-statistics">
-                {{-- <div class="card-header">
-                    <div class="card-heading">
-                        <h4 class="card-title">List Of Users</h4>
-                    </div>
-                </div> --}}
+               
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered mb-0">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">Avatar</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Email Address</th>
-                                    <th scope="col">Role</th>
-                                    <th scope="col">Join Date</th>
+                                    <th scope="col">Recipes Purchase</th>
+                                    <th scope="col">Payment Status</th>
+                                    <th scope="col">Total Price</th>
+                                    <th scope="col">Order Status</th>
+                                    <th scope="col">Order Date</th>
                                     <th scope="col" class="action-column">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($users as $item)
+                                @forelse ($orders as $item)
                                 <tr>
-                                    <th scope="row">{{ $users->firstItem() + $loop->index }}</th>
+                                    <th scope="row">{{ $orders->firstItem() + $loop->index }}</th>
+                                    <td>{{ count($item->items) }}</td>
                                     <td>
-                                        <img src="{{ $item->photo != NULL ? $item->photo_url : asset('img/chef-profile.jpg') }}" alt="" width="30">
+                                        <span class="{{ ($item->payment_status == 'paid') ? 'text-success'  : 'text-danger' }}">
+                                            {{ strtoupper($item->payment_status) }}
+                                        </span>
                                     </td>
-                                    <td>{{ $item->name }}</td>
-                                    <td>{{ $item->email }}</td>
-                                    <td>{{ strtoupper(implode(', ', $item->role_names)) }}</td>
+                                    <td>€{{ $item->total_price }}</td>
+                                    <td>
+                                        <span class="{{ ($item->payment_status == 'paid') ? 'text-success'  : 'text-danger' }}">
+                                            {{ strtoupper($item->status) }}
+                                        </span>
+                                    </td>
                                     <td>{{ $item->formatted_created_at }}</td>
                                     <td class="action-column">
-                                        {{-- <a href="{{ route('users.show', $item->id) }}" class="btn btn-info btn-xs">Details</a> --}}
-                                        {{-- <a href="{{ route('users.edit', $item->id) }}" class="btn btn-primary btn-xs">Edit</a> --}}
-                                        <form action="{{ route('users.destroy', $item->id) }}" method="post" style="display:inline;">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
-                                        </form>
+                                        <a href="{{ route('orders.detail', $item->id) }}" class="btn btn-primary btn-xs">Details</a>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="4">User not found</td>
+                                    <td colspan="7">Orders not found</td>
                                 </tr>
                                 @endforelse
                             </tbody>
                         </table>
                     </div>
-                    {{ $users->links('vendor.pagination.custom') }}
+                    {{ $orders->links('vendor.pagination.custom') }}
                 </div>
             </div>
         </div>

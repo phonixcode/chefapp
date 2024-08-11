@@ -70,6 +70,20 @@
                                     <button type="submit" class="btn btn-dark">Submit</button>
                                 </form>
                             </div>
+
+                            <div class="checkout__order">
+                                <h6 class="order__title">2 Factor Authentication</h6>
+                        
+                                <form id="2fa-form" action="{{ route('update.2fa') }}" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label class="switch">
+                                            <input type="checkbox" id="2fa-toggle" {{ auth()->user()->is_2fa_enabled ? 'checked' : '' }}>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>                        
+                                </form>
+                            </div>
                         </div>
                         
                     </div>
@@ -78,3 +92,107 @@
         </div>
     </section>
 @endsection
+@push('css')
+<style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+    
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+    
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+    
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+    
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      -ms-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+    
+    /* Rounded sliders */
+    .slider.round {
+      border-radius: 34px;
+    }
+    
+    .slider.round:before {
+      border-radius: 50%;
+    }
+    </style>
+@endpush
+
+@push('js')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggle = document.getElementById('2fa-toggle');
+        const form = document.getElementById('2fa-form');
+    
+        toggle.addEventListener('change', function () {
+            // Get the current state of the checkbox
+            const isEnabled = toggle.checked;
+    
+            // Create a FormData object
+            const formData = new FormData();
+            formData.append('_token', form.querySelector('input[name="_token"]').value);
+            formData.append('is_2fa_enabled', isEnabled ? 1 : 0);
+    
+            // Send AJAX request to update 2FA status
+            fetch(form.action, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('2FA status updated');
+                } else {
+                    console.error('Failed to update 2FA status');
+                    // Optionally, revert the checkbox state if there's an error
+                    toggle.checked = !isEnabled;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Optionally, revert the checkbox state if there's an error
+                toggle.checked = !isEnabled;
+            });
+        });
+    });
+    </script>
+    
+@endpush

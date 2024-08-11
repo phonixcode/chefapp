@@ -24,7 +24,7 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        $recipes = $this->recipeRepository->lists(10);
+        $recipes = Recipe::where('user_id', auth()->id())->paginate(10);
         return view('admin.recipe.index', compact('recipes'));
     }
 

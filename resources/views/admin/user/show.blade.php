@@ -8,7 +8,7 @@
             <!-- begin page title -->
             <div class="d-block d-sm-flex flex-nowrap align-items-center">
                 <div class="page-title mb-2 mb-sm-0">
-                    <h1>Create User</h1>
+                    <h1>User Details</h1>
                 </div>
                 <div class="ml-auto d-flex align-items-center">
                     <nav>
@@ -19,7 +19,7 @@
                             <li class="breadcrumb-item">
                                 <a href="{{ route('users.index') }}">Users</a>
                             </li>
-                            <li class="breadcrumb-item active text-warning" aria-current="page">Create</li>
+                            <li class="breadcrumb-item active text-warning" aria-current="page">Details</li>
                         </ol>
                     </nav>
                 </div>
@@ -48,7 +48,7 @@
         <div class="col-xl-12">
             <div class="card card-statistics">
                 <div class="card-body">
-                    <form action="{{ route('users.store') }}" method="post">
+                    {{-- <form action="{{ route('users.store') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="name">Name</label>
@@ -56,7 +56,8 @@
                                 value="{{ old('name') }}">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    </form> --}}
+                    
                 </div>
             </div>
         </div>
