@@ -8,6 +8,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RecipeController;
+use App\Http\Controllers\RecipeReviewController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 
@@ -51,6 +52,10 @@ Route::controller(FrontendController::class)->group(function () {
     Route::get('/chefs', 'chefs')->name('chefs');
     Route::get('/chefs/{id}', 'chefDetails')->name('chefs.details');
 });
+
+Route::post('/reviews', [RecipeReviewController::class, 'store'])->name('reviews.store');
+Route::get('/reviews/{recipe}', [RecipeReviewController::class, 'list'])->name('reviews.list');
+Route::get('recipes/{id}/reviews/count', [RecipeReviewController::class, 'count'])->name('reviews.count');
 
 Route::middleware('auth')->group(function () {
     Route::post('logout',[AuthController::class, 'logout'])->name('logout');

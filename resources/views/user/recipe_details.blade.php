@@ -27,8 +27,7 @@
                 <div class="col-lg-6">
                     <div class="product__details__img">
                         <div class="product__details__big__img">
-                            <img class="big_img" src="{{ $recipe->image_urls[0] }}"
-                                alt="">
+                            <img class="big_img" src="{{ $recipe->image_urls[0] }}" alt="">
                         </div>
                         <div class="product__details__thumb">
                             @foreach ($recipe->image_urls as $key => $image)
@@ -43,15 +42,19 @@
                     <div class="product__details__text">
                         <div class="product__label">{{ $recipe->category->name }}</div>
                         <h4>{{ $recipe->title }}</h4>
-                        <h5>€{{ $recipe->price }}</h5>
+                        <h6 class="d-none"><a href="#">{{ $recipe->title }}</a></h6>
+                        <h5 class="product__item__price" data-price="{{ $recipe->price }}">€{{ $recipe->price }}</h5>
                         <ul>
-                            <li>Chef: <span><a href="{{ route('chefs.details', $recipe->user->id) }}">{{ $recipe->user->name }}</a></span></li>
+                            <li>Chef: <span><a
+                                        href="{{ route('chefs.details', $recipe->user->id) }}">{{ $recipe->user->name }}</a></span>
+                            </li>
                             <li>Category: <span>{{ $recipe->category->name }}</span></li>
                         </ul>
-                        <div class="product__details__option">
-                            <a href="{{ route('cart') }}" class="primary-btn">Add to cart</a>
+                        <div class="product__details__option cart_add">
+                            <a href="#" class="primary-btn">Add to cart</a>
                             @auth
-                            <a href="javascript:void(0);" class="heart__btn" data-id="{{ $recipe->id }}"><span class="icon_heart_alt"></span></a>
+                                <a href="javascript:void(0);" class="heart__btn" data-id="{{ $recipe->id }}"><span
+                                        class="icon_heart_alt"></span></a>
                             @endauth
                         </div>
                     </div>
@@ -67,7 +70,7 @@
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Additional information</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews(1)</a>
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab" id="review-tab">Reviews({{ count($recipe->reviews) }})</a>
                         </li>
                     </ul>
                     <div class="tab-content">
@@ -93,34 +96,50 @@
                             <div class="row d-flex ">
                                 <div class="col-lg-8">
                                     <div class="blog__details__comment mt-5">
+                                        @auth
+                                        <h4>Submit Review</h4>
+                                        <form action="{{ route('reviews.store') }}" method="POST" id="review-form">
+                                            @csrf
+                                            <div class="form-group mt-2">
+                                                <span>Your Rating</span>
+                                                <div class="stars">
+                                                    <input type="radio" name="rate" class="star-1" id="star-1"
+                                                        value="1">
+                                                    <label class="star-1" for="star-1">1</label>
+                                                    <input type="radio" name="rate" class="star-2" id="star-2"
+                                                        value="2">
+                                                    <label class="star-2" for="star-2">2</label>
+                                                    <input type="radio" name="rate" class="star-3" id="star-3"
+                                                        value="3">
+                                                    <label class="star-3" for="star-3">3</label>
+                                                    <input type="radio" name="rate" class="star-4" id="star-4"
+                                                        value="4">
+                                                    <label class="star-4" for="star-4">4</label>
+                                                    <input type="radio" name="rate" class="star-5" id="star-5"
+                                                        value="5">
+                                                    <label class="star-5" for="star-5">5</label>
+                                                </div>
+                                                @error('rate')
+                                                    <p class="text-danger">{{ $message }}</p>
+                                                @enderror
 
-                                        <form action="">
+                                                <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
 
+                                                <div class="form-group">
+                                                    <label for="comments">Leave a Comment</label>
+                                                    <textarea class="form-control" id="comments" rows="5" name="review" data-max-length="150" required></textarea>
+                                                </div>
+
+                                                <button type="submit" class="site-btn">Submit Review</button>
+                                            </div>
                                         </form>
-
-                                        <h5>03 Comment</h5>
-                                        <div class="blog__details__comment__item">
-                                            <div class="blog__details__comment__item__pic">
-                                                <img src="{{ asset('img/blog/details/comment-1.jpg') }}" alt="">
-                                            </div>
-                                            <div class="blog__details__comment__item__text">
-                                                <h6>Dylan Stewart</h6>
-                                                <span>26 Feb 2020</span>
-                                                <span>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                </span>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                                incididunt ut labore et dolore magna aliqua vel facilisis.</p>
-                                            </div>
-                                        </div>
+                                        @endauth
+                                        
+                                        @include('partials.reviews')
                                     </div>
                                 </div>
                             </div>
-                        </div>                     
+                        </div>
                     </div>
                 </div>
             </div>
@@ -142,16 +161,16 @@
                 <div class="related__products__slider owl-carousel">
                     @foreach ($relatedRecipes as $item)
                         <div class="col-lg-3">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg"
-                                    data-setbg="{{ $item->image_urls[0] }}">
+                            <div class="product__item" data-id="{{ $item->id }}">
+                                <div class="product__item__pic set-bg" data-setbg="{{ $item->image_urls[0] }}">
                                     <div class="product__label">
                                         <span>{{ $item->category->name }}</span>
                                     </div>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="{{ route('recipes.details', $item->slug) }}">{{ $item->title }}</a></h6>
-                                    <div class="product__item__price">€{{ $item->price }}</div>
+                                    <h6><a href="{{ route('recipes.details', $item->slug) }}">{{ $item->title }}</a>
+                                    </h6>
+                                    <div class="product__item__price" data-price="{{ $item->price }}">€{{ $item->price }}</div>
                                     <div class="cart_add">
                                         <a href="#">Add to cart</a>
                                     </div>
@@ -169,9 +188,58 @@
 @push('css')
     <style>
         a:hover {
-    color: #007bff;
-    text-decoration: none;
-    background-color: transparent;
-}
+            color: #007bff;
+            text-decoration: none;
+            background-color: transparent;
+        }
+        .primary-btn:hover{
+            color: #ffffff;
+            background: #c80614d4;
+        }
     </style>
+@endpush
+@push('js')
+    <script>
+        $(document).on('submit', '#review-form', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: '{{ route('reviews.store') }}',
+                method: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        // Reload the comments list
+                        loadComments();
+                        updateReviewTabCount();
+                        $('#review-form')[0].reset(); // Reset the form
+                        $('.stars input').prop('checked', false); // Uncheck all stars
+                    }
+                },
+                error: function(response) {
+                    var errors = response.responseJSON.errors;
+                    if (errors) {
+                        $.each(errors, function(key, value) {
+                            $('#' + key).after('<span class="text-danger">' + value[0] +
+                                '</span>');
+                        });
+                    } else {
+                        alert('Error submitting review');
+                    }
+                }
+            });
+        });
+
+        function loadComments() {
+            $.get('{{ route('reviews.list', $recipe->id) }}', function(data) {
+                $('.blog__details__comment').html(data);
+            });
+        }
+
+        function updateReviewTabCount() {
+            $.get('{{ route("reviews.count", $recipe->id) }}', function(count) {
+                $('#review-tab').text('Reviews(' + count + ')');
+            });
+        }
+    </script>
 @endpush

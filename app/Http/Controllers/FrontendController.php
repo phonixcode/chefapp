@@ -52,30 +52,30 @@ class FrontendController extends Controller
 
         // category filter
         $categoryURL = '';
-        if(!empty($data['category'])) {
+        if (!empty($data['category'])) {
             $categoryURL .= '&category=' . $data['category'];
         }
 
         $searchURL = '';
-        if(!empty($data['search'])) {
+        if (!empty($data['search'])) {
             $categoryURL .= '&search=' . $data['search'];
         }
 
-        return redirect()->route('recipes', $sortByUrl . $categoryURL. $searchURL);
+        return redirect()->route('recipes', $sortByUrl . $categoryURL . $searchURL);
     }
 
     private function getRecipes()
     {
         $recipes = Recipe::query();
 
-        if(!empty($_GET['category'])){
+        if (!empty($_GET['category'])) {
             $cat_id = Category::where('slug', $_GET['category'])->first()->id;
             $recipes = $recipes->where('category_id', $cat_id);
         }
 
-        if(!empty($_GET['search'])){
+        if (!empty($_GET['search'])) {
             $recipes = $recipes->where('title', 'LIKE', '%' . $_GET['search'] . '%');
-        } 
+        }
 
         if (!empty($_GET['sortBy'])) {
             if ($_GET['sortBy'] == 'priceAsc') {
@@ -120,9 +120,9 @@ class FrontendController extends Controller
     {
         $chefs = User::query();
 
-        if(!empty($_GET['chef'])){
+        if (!empty($_GET['chef'])) {
             $chefs = $chefs->where('name', 'LIKE', '%' . $_GET['chef'] . '%');
-        } 
+        }
 
         $chefs = $chefs->chefs()->latest()->paginate(12);
         return view('user.chef', compact('chefs'));
@@ -130,18 +130,23 @@ class FrontendController extends Controller
 
     public function chefDetails($id)
     {
-        $chef = User::with('recipes')->findOrFail($id);
+        $chef = User::with('recipes.reviews')->findOrFail($id);
 
-        return view('user.chef_details', compact('chef'));
+        $allReviews = $chef->recipes->flatMap->reviews;
+
+        $averageRating = $allReviews->avg('rating');
+
+        return view('user.chef_details', compact('chef', 'allReviews', 'averageRating'));
     }
+
 
     public function blog()
     {
         $blog_lists = Blog::query();
 
-        if(!empty($_GET['keyword'])){
+        if (!empty($_GET['keyword'])) {
             $blog_lists = $blog_lists->where('title', 'LIKE', '%' . $_GET['keyword'] . '%');
-        } 
+        }
 
         $blog_lists = $blog_lists->with('user')->latest()->paginate(4);
 

@@ -27,7 +27,8 @@
                 <div class="col-lg-6">
                     <div class="product__details__img">
                         <div class="product__details__big__img">
-                            <img class="big_img" src="{{ $chef->photo != NULL ? $chef->photo_url : asset('img/chef-profile.jpg') }}"
+                            <img class="big_img"
+                                src="{{ $chef->photo != null ? $chef->photo_url : asset('img/chef-profile.jpg') }}"
                                 alt="">
                         </div>
                     </div>
@@ -35,6 +36,18 @@
                 <div class="col-lg-6">
                     <div class="product__details__text">
                         <div class="product__label mb-3">Chef</div>
+                        <span>
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $averageRating)
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                @elseif ($i > $averageRating && $i < $averageRating + 1 && fmod($averageRating, 1) >= 0.5)
+                                    <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                @else
+                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                @endif
+                            @endfor
+                        </span>
+
                         <p>Name: {{ $chef->name }}</p>
                         <p>Email: {{ $chef->email }}</p>
                         <p>Restaurant Name: {{ ucwords($chef->restaurant_name) }}</p>
@@ -56,34 +69,36 @@
                             <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Book Session</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Reviews(1)</a>
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3"
+                                role="tab">Reviews({{ count($allReviews) }})</a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="row d-flex mt-5">
-                                    <div class="related__products__slider owl-carousel">
-                                        @foreach ($chef->recipes as $item)
-                                            <div class="col-lg-3">
-                                                <div class="product__item">
-                                                    <div class="product__item__pic set-bg"
-                                                        data-setbg="{{ $item->image_urls[0] }}">
-                                                        <div class="product__label">
-                                                            <span>{{ $item->category->name }}</span>
-                                                        </div>
+                                <div class="related__products__slider owl-carousel">
+                                    @foreach ($chef->recipes as $item)
+                                        <div class="col-lg-3">
+                                            <div class="product__item" data-id="{{ $item->id }}">
+                                                <div class="product__item__pic set-bg"
+                                                    data-setbg="{{ $item->image_urls[0] }}">
+                                                    <div class="product__label">
+                                                        <span>{{ $item->category->name }}</span>
                                                     </div>
-                                                    <div class="product__item__text">
-                                                        <h6><a href="{{ route('recipes.details', $item->slug) }}">{{ $item->title }}</a></h6>
-                                                        <div class="product__item__price">€{{ $item->price }}</div>
-                                                        <div class="cart_add">
-                                                            <a href="#">Add to cart</a>
-                                                        </div>
+                                                </div>
+                                                <div class="product__item__text">
+                                                    <h6><a
+                                                            href="{{ route('recipes.details', $item->slug) }}">{{ $item->title }}</a>
+                                                    </h6>
+                                                    <div class="product__item__price" data-price="{{ $item->price }}">€{{ $item->price }}</div>
+                                                    <div class="cart_add">
+                                                        <a href="#">Add to cart</a>
                                                     </div>
                                                 </div>
                                             </div>
-                                        @endforeach
-                    
-                                    </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
@@ -99,34 +114,31 @@
                             <div class="row d-flex ">
                                 <div class="col-lg-8">
                                     <div class="blog__details__comment mt-5">
-
-                                        <form action="">
-
-                                        </form>
-
-                                        <h5>03 Comment</h5>
-                                        <div class="blog__details__comment__item">
-                                            <div class="blog__details__comment__item__pic">
-                                                <img src="{{ asset('img/blog/details/comment-1.jpg') }}" alt="">
+                                        <h5>{{ count($allReviews) }} Comment</h5>
+                                        @foreach ($allReviews as $review)
+                                            <div class="blog__details__comment__item">
+                                                <div class="blog__details__comment__item__pic">
+                                                    {{-- <img src="{{ asset('img/blog/details/comment-1.jpg') }}" alt=""> --}}
+                                                    <img src="{{ $review->user->photo != null ? $review->user->photo_url : asset('img/chef-profile.jpg') }}"
+                                                        alt="">
+                                                </div>
+                                                <div class="blog__details__comment__item__text mb-5">
+                                                    <h6>{{ $review->user->name }}</h6>
+                                                    <span>{{ $review->created_at->format('M d, Y') }}</span>
+                                                    <span>
+                                                        @for ($i = 0; $i < 5; $i++)
+                                                            <i class="fa fa-star{{ $i < $review->rating ? '' : '-o' }}"
+                                                                aria-hidden="true"></i>
+                                                        @endfor
+                                                    </span>
+                                                    <span>{{ $review->review }}</span>
+                                                </div>
                                             </div>
-                                            <div class="blog__details__comment__item__text mb-5">
-                                                <h6>Dylan Stewart</h6>
-                                                <span>26 Feb 2020</span>
-                                                <span>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                </span>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                                incididunt ut labore et dolore magna aliqua vel facilisis.</p>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
-                        </div>                     
+                        </div>
                     </div>
                 </div>
             </div>

@@ -42,6 +42,11 @@ class Recipe extends Model
         return $this->hasMany(RecipeImage::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(RecipeReview::class);
+    }
+
     // public function purchases()
     // {
     //     return $this->hasMany(Purchase::class);
