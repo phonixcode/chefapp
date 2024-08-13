@@ -95,6 +95,58 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-xl-12">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">Booking Infomation</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('booking.submit') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="calendar_link">Calendar Link</label>
+                            <input type="url" class="form-control" id="calendar_link" placeholder="" name="calendar_link"
+                                value="{{ old('calendar_link', $booking->calendar_link ?? '') }}">
+
+                            <small>Note: Get your link from <a href="https://calendly.com/" target="_blank" rel="noopener noreferrer">calendly.com</a></small>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-12">
+            <div class="card card-statistics">
+                <div class="card-header">
+                    <div class="card-heading">
+                        <h4 class="card-title">
+                            Chef Verification
+
+                            <span class="btn btn-badge btn-dark">
+                                Not Verify
+                            </span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="upload_certificate">Upload Certificate</label>
+                            <input type="file" class="form-control" id="upload_certificate" placeholder="" name="upload_certificate">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- end row -->
 </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\RecipeController;
 use App\Http\Controllers\RecipeReviewController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\WithdrawalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -85,6 +86,16 @@ Route::middleware('auth')->group(function () {
             Route::get('orders/{id}', 'order_detail')->name('orders.detail');
             Route::get('profile', 'profile')->name('profile');
             Route::post('profile', 'profileSubmit')->name('profile.submit');
+            Route::post('booking-info', 'bookingInfo')->name('booking.submit');
+        });
+
+        Route::controller(WithdrawalController::class)->group(function () {
+            Route::get('withdrawal', 'withdrawal')->name('withdrawal');
+            Route::post('withdrawal/bank-information', 'bankInformationSubmit')->name('withdrawal.bank.information.submit');
+            Route::post('withdrawal/withdraw-revenue', 'withdrawRevenue')->name('withdrawal.revenue.submit');
+
+            Route::get('withdrawals', 'withdrawals')->name('withdrawals');
+            Route::put('withdrawals/{id}/status', 'updateStatus')->name('withdrawals.updateStatus');
         });
 
         Route::resource('recipe-categories', CategoryController::class);

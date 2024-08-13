@@ -8,6 +8,7 @@ use App\Models\Recipe;
 use Illuminate\Http\Request;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
+use App\Models\Booking;
 
 class DashboardController extends Controller
 {
@@ -19,14 +20,16 @@ class DashboardController extends Controller
         $orders = Order::forUserRecipes($userId)->count();
         $recipes = Recipe::where('user_id', $userId)->count();
         $blogs = Blog::where('user_id', $userId)->count();
-        $revenues = Order::forUserRecipes($userId)->sum('total_price');
+        // $revenues = Order::forUserRecipes($userId)->where('status', 'completed')->sum('total_price');
+        $revenues = auth()->user()->revenue;
 
         return view('admin.dashboard', compact('orders', 'recipes', 'blogs', 'revenues'));
     }
 
     public function profile()
     {
-        return view('admin.profile');
+        $booking = Booking::where('user_id', auth()->id())->first();
+        return view('admin.profile', compact('booking'));
     }
 
     public function profileSubmit(Request $request)
@@ -60,6 +63,24 @@ class DashboardController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Profile updated Successfully');
+    }
+
+    public function bookingInfo(Request $request)
+    {
+        $request->validate([
+            'calendar_link' => 'required|string',
+        ]);
+
+        $user = auth()->user();
+
+        $booking = Booking::firstOrNew(
+            ['user_id' => $user->id]
+        );
+
+        $booking->calendar_link = $request->input('calendar_link');
+        $booking->save();
+
+        return redirect()->back()->with('success', 'Calendar Info updated successfully.');
     }
 
     public function orders()

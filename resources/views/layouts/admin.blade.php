@@ -130,11 +130,23 @@
                                     <span class="nav-title">Orders</span>
                                 </a> 
                             </li>
+                            <li class="{{ request()->routeIs('withdrawal*') ? 'active' : '' }}">
+                                <a href="{{ route('withdrawal') }}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Withdrawal</span>
+                                </a> 
+                            </li>
                             @if ($role == 'admin')
                             <li class="{{ request()->routeIs('users*') ? 'active' : '' }}">
                                 <a href="{{ route('users.index') }}" aria-expanded="false">
                                     <i class="nav-icon ti ti-list"></i>
                                     <span class="nav-title">User Management</span>
+                                </a> 
+                            </li>
+                            <li class="{{ request()->routeIs('withdrawals*') ? 'active' : '' }}">
+                                <a href="{{ route('withdrawals') }}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Withdrawals</span>
                                 </a> 
                             </li>
                             @endif

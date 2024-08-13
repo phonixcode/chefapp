@@ -102,10 +102,13 @@
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-2" role="tabpanel">
-                            <div class="row d-flexr">
-                                <div class="col-lg-8">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-lg-8 mb-5">
                                     <p>
-                                        {{-- {!! $recipe->additional_description !!} --}}
+                                        Interested in booking a one-on-one session with the chef? Click on the link below to schedule your meeting and explore personalized culinary guidance and insights tailored just for you.
+                                    </p>
+                                    <p>
+                                        <a href="{{ $chef->bookings->calendar_link }}" target="_blank" class="btn btn-dark">Book a Meeting</a>
                                     </p>
                                 </div>
                             </div>

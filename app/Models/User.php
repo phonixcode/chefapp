@@ -82,6 +82,17 @@ class User extends Authenticatable
         return $this->hasMany(Wishlist::class);
     }
 
+    public function withdrawalDetails()
+    {
+        return $this->hasOne(WithdrawalDetail::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasOne(Booking::class);
+    }
+
+
     // public function getIs2faEnabledAttribute()
     // {
     //     return !is_null($this->two_factor_code);

@@ -130,7 +130,7 @@ class FrontendController extends Controller
 
     public function chefDetails($id)
     {
-        $chef = User::with('recipes.reviews')->findOrFail($id);
+        $chef = User::with('bookings','recipes.reviews')->findOrFail($id);
 
         $allReviews = $chef->recipes->flatMap->reviews;
 
@@ -138,7 +138,6 @@ class FrontendController extends Controller
 
         return view('user.chef_details', compact('chef', 'allReviews', 'averageRating'));
     }
-
 
     public function blog()
     {
