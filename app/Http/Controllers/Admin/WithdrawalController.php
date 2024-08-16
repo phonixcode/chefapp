@@ -15,7 +15,7 @@ class WithdrawalController extends Controller
     {
         $revenues = auth()->user()->revenue;
         $withdrawalDetail = WithdrawalDetail::where('user_id', auth()->id())->first();
-        $withdrawals = Withdrawal::where('user_id', auth()->id())->paginate(10);
+        $withdrawals = Withdrawal::where('user_id', auth()->id())->latest()->paginate(10);
         return view('admin.withdrawal', compact('withdrawalDetail', 'revenues', 'withdrawals'));
     }
 
@@ -48,31 +48,39 @@ class WithdrawalController extends Controller
             'amount' => 'required|numeric|min:0.01',
         ]);
 
-        $revenues = auth()->user()->revenue;
+        $user = auth()->user();
+        $revenues = $user->revenue;
 
-        $pendingWithdrawals = Withdrawal::where('user_id', auth()->id())
+        // Check if the user has provided bank information
+        $withdrawalDetail = WithdrawalDetail::where('user_id', $user->id)->first();
+        if (!$withdrawalDetail || is_null($withdrawalDetail->bank_information)) {
+            return redirect()->back()->with('error', 'You must provide your bank information before making a withdrawal.');
+        }
+
+        $pendingWithdrawals = Withdrawal::where('user_id', $user->id)
             ->where('status', 'pending')
             ->sum('amount');
 
         $availableBalance = $revenues - $pendingWithdrawals;
 
-        // Check if the requested amount is less than or equal to the total revenue
+        // Check if the requested amount is less than or equal to the total available balance
         if ($request->input('amount') > $availableBalance) {
             return redirect()->back()->with('error', 'The requested amount exceeds your available revenue.');
         }
 
         // Create a new withdrawal request
         $withdrawal = Withdrawal::create([
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'amount' => $request->input('amount'),
         ]);
 
         return redirect()->back()->with('success', 'Withdrawal request submitted successfully.');
     }
 
+
     public function withdrawals()
     {
-        $withdrawals = Withdrawal::with(['user.withdrawalDetails'])->paginate(10);
+        $withdrawals = Withdrawal::with(['user.withdrawalDetails'])->latest()->paginate(10);
         return view('admin.withdrawals', compact('withdrawals'));
     }
 
@@ -86,17 +94,14 @@ class WithdrawalController extends Controller
         // Retrieve the withdrawal record
         $withdrawal = Withdrawal::findOrFail($id);
 
-        if ($request->input('status') === 'completed') {
-            $userId = $withdrawal->user_id;
+        // Get the user associated with the withdrawal
+        $user = User::findOrFail($withdrawal->user_id);
 
+        if ($request->input('status') === 'completed') {
             $revenueToSubtract = $withdrawal->amount;
 
             // Subtract the amount from the user's total revenue
-            $currentRevenue = Order::forUserRecipes($userId)->where('status', 'completed')->sum('total_price');
-            $newRevenue = $currentRevenue - $revenueToSubtract;
-
-            $user = User::findOrFail($userId);
-            $user->revenue = $newRevenue; 
+            $user->revenue -= $revenueToSubtract;
             $user->save();
         }
 
@@ -104,10 +109,8 @@ class WithdrawalController extends Controller
         $withdrawal->status = $request->input('status');
         $withdrawal->save();
 
-        // Redirect back with success message
+        // Redirect back with a success message
         return redirect()->back()->with('success', 'Withdrawal status updated successfully.');
     }
-
-
 }
 

@@ -105,6 +105,11 @@ class OrderController extends Controller
 
             foreach ($orderItems as $item) {
                 $recipe = $item->recipe;
+                // Update the recipe user's revenue
+                $recipeUser = $recipe->user;
+                $recipeUser->revenue += $item->price;
+                $recipeUser->save();
+
                 $pdf = PDF::loadView('pdf.recipe', ['order' => $order, 'recipe' => $recipe]);
                 $pdfPath = 'orders/order_' . $orderId . '_recipe_' . $recipe->id . '.pdf';
                 Storage::put($pdfPath, $pdf->output());

@@ -87,7 +87,7 @@ class DashboardController extends Controller
             ]
         );
 
-        return redirect()->back()->with('status', 'Certificate submitted for review.');
+        return redirect()->back()->with('success', 'Certificate submitted for review.');
     }
 
     public function bookingInfo(Request $request)

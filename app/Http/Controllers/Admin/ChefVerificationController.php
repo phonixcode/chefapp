@@ -62,7 +62,7 @@ class ChefVerificationController extends Controller
         $verification->status = $request->input('status');
         $verification->save();
     
-        return redirect()->back()->with('status', 'Verification status updated successfully.');
+        return redirect()->back()->with('success', 'Verification status updated successfully.');
     }
 
     /**

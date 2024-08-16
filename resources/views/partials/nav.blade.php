@@ -31,7 +31,11 @@
                                     @php
                                         $role = implode(', ', auth()->user()->role_names);
                                     @endphp
-                                    <li>{{ auth()->user()->name }} <span class="arrow_carrot-down"></span>
+                                    <li>{{ auth()->user()->name }} 
+                                        @if(auth()->user()->chefVerification && auth()->user()->chefVerification->status == 'completed')
+                                            <img src="{{ asset('img/verify.png') }}" alt="" width="20">
+                                        @endif
+                                        <span class="arrow_carrot-down"></span>
                                         <ul>
                                             @if ($role == 'chef' || $role == 'admin')
                                                 <li><a href="{{ route('dashboard') }}" class="text-white">Dashboard</a></li>

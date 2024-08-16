@@ -27,12 +27,20 @@
                 <div class="footer__newslatter">
                     <h6>Subscribe</h6>
                     <p>Get latest updates and offers.</p>
-                    <form action="#">
-                        <input type="text" placeholder="Email">
+                    <form action="{{ route('subscribe') }}" method="POST">
+                        @csrf
+                        <input type="text" name="email" placeholder="Email" required>
                         <button type="submit"><i class="fa fa-send-o"></i></button>
                     </form>
+            
+                    @if(session('success'))
+                        <div class="alert alert-success mt-2">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 </div>
             </div>
+            
         </div>
     </div>
     <div class="copyright">

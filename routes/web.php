@@ -12,6 +12,7 @@ use App\Http\Controllers\RecipeReviewController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\WithdrawalController;
+use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\ChefVerificationController;
 
 /*
@@ -64,6 +65,8 @@ Route::controller(FrontendController::class)->group(function () {
 Route::post('/reviews', [RecipeReviewController::class, 'store'])->name('reviews.store');
 Route::get('/reviews/{recipe}', [RecipeReviewController::class, 'list'])->name('reviews.list');
 Route::get('recipes/{id}/reviews/count', [RecipeReviewController::class, 'count'])->name('reviews.count');
+Route::post('/subscribe', [SubscriptionController::class, 'store'])->name('subscribe');
+
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
