@@ -6,7 +6,12 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="breadcrumb__text">
-                        <h2>{{ $chef->name }}</h2>
+                        <h2>
+                            {{ $chef->name }} 
+                            @if($chef->chefVerification && $chef->chefVerification->status == 'completed')
+                                    <img src="{{ asset('img/verify.png') }}" alt="" width="30">
+                            @endif
+                        </h2>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">

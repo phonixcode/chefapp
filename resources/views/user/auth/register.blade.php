@@ -80,10 +80,13 @@
                             </div>
 
                             <div class="col-lg-12">
-                                <span>Already have an account? <a href="{{ route('login') }}">Click here</a></span><br><br>
+                                <span>Already have an account? <a href="{{ route('login') }}" class="text-info">Click here</a></span><br><br>
                                 <button type="submit" class="site-btn" id="submit-button" disabled>Submit</button>
-                                <span>Become a Registered Chef: <a href="{{ route('register', ['action' => 'chef']) }}"
-                                        id="chef-link">Sign Up Here</a></span>
+                                <span>
+                                    <span id="chef-text">Become a Registered Chef: </span> 
+                                    <a class="text-info" href="{{ route('register', ['action' => 'chef']) }}" id="chef-link">Sign Up Here</a>
+                                </span>
+                                
                             </div>
                         </div>
                     </form>
@@ -98,16 +101,26 @@
     <script>
         // Check if URL contains ?action=chef and display additional fields if true
         document.addEventListener("DOMContentLoaded", function() {
-            const urlParams = new URLSearchParams(window.location.search);
+             const urlParams = new URLSearchParams(window.location.search);
+
             if (urlParams.has('action') && urlParams.get('action') === 'chef') {
                 document.querySelectorAll('.chef-field').forEach(field => {
                     field.style.display = 'block';
                 });
 
-                // Append the action=chef parameter to the form action URL
-                const form = document.getElementById('register-form');
-                form.action += '?action=chef';
+                // Update the text to "Register as a User"
+                const chefText = document.getElementById('chef-text');
+                if (chefText) {
+                    chefText.textContent = 'Register as a User';
+                }
+
+                // Update the link to remove 'action=chef' when clicked
+                const chefLink = document.getElementById('chef-link');
+                if (chefLink) {
+                    chefLink.href = '{{ route("register") }}';
+                }
             }
+
 
             // Password validation
             const submitButton = document.getElementById('submit-button');

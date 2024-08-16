@@ -21,9 +21,9 @@
                                 <input type="password" placeholder="******" name="password">
                             </div>
                             <div class="col-lg-12">
-                                <a href="{{ route('forget.password') }}">Forget Password?</a><br><br>
+                                <a class="text-info" href="{{ route('forget.password') }}">Forget Password?</a><br><br>
                                 <button type="submit" class="site-btn">Submit</button>
-                                <span>Don't Have an Account <a href="{{ route('register') }}">Click here</a></span>
+                                <span>Don't Have an Account <a class="text-info" href="{{ route('register') }}">Click here</a></span>
                             </div>
                         </div>
                     </form>

@@ -18,7 +18,12 @@
                 <a href="{{ route('chefs.details', $item->id) }}">
                     <div class="team__item set-bg" data-setbg="{{ $item->photo != NULL ? $item->photo_url : asset('img/chef-profile.jpg') }}">
                         <div class="team__item__text">
-                            <h6>{{ $item->name }}</h6>
+                            <h6>
+                                {{ $item->name }}
+                                @if($item->chefVerification && $item->chefVerification->status == 'completed')
+                                    <img src="{{ asset('img/verify.png') }}" alt="" width="20">
+                                @endif
+                            </h6>
                             <span>Chef</span>
                             <div class="team__item__social">
                                 <a href="#"><i class="fa fa-facebook"></i></a>

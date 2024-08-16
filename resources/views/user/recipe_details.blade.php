@@ -45,13 +45,21 @@
                         <h6 class="d-none"><a href="#">{{ $recipe->title }}</a></h6>
                         <h5 class="product__item__price" data-price="{{ $recipe->price }}">€{{ $recipe->price }}</h5>
                         <ul>
-                            <li>Chef: <span><a
-                                        href="{{ route('chefs.details', $recipe->user->id) }}">{{ $recipe->user->name }}</a></span>
+                            <li>
+                                Chef: 
+                                <span>
+                                    <a href="{{ route('chefs.details', $recipe->user->id) }}">
+                                        {{ $recipe->user->name }}
+                                        @if($recipe->user->chefVerification && $recipe->user->chefVerification->status == 'completed')
+                                            <img src="{{ asset('img/verify.png') }}" alt="" width="20">
+                                        @endif
+                                    </a>
+                                </span>
                             </li>
                             <li>Category: <span>{{ $recipe->category->name }}</span></li>
                         </ul>
                         <div class="product__details__option cart_add">
-                            <a href="#" class="primary-btn">Add to cart</a>
+                            <a href="javascript:void(0);" class="primary-btn">Add to cart</a>
                             @auth
                                 <a href="javascript:void(0);" class="heart__btn" data-id="{{ $recipe->id }}"><span
                                         class="icon_heart_alt"></span></a>
@@ -241,5 +249,54 @@
                 $('#review-tab').text('Reviews(' + count + ')');
             });
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const addToCartButton = document.querySelector('.cart_add .primary-btn');
+    const cartCountElement = document.querySelector('.header__top__right__cart a span');
+    const cartPriceElement = document.querySelector('.cart_price');
+
+    function updateCartInfo() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartCount = cart.length;
+        const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+
+        cartCountElement.textContent = cartCount;
+        cartPriceElement.textContent = `€${cartTotal}`;
+    }
+
+    addToCartButton.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const recipeId = "{{ $recipe->id }}";
+        const recipeTitle = "{{ $recipe->title }}";
+        const recipePrice = parseFloat("{{ $recipe->price }}");
+        const recipeImage = "{{ $recipe->image_urls[0] }}"; // Assuming the first image is the main image
+
+        const cartItem = {
+            id: recipeId,
+            title: recipeTitle,
+            price: recipePrice,
+            image: recipeImage,
+            quantity: 1
+        };
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingItemIndex = cart.findIndex(item => item.id === recipeId);
+
+        if (existingItemIndex > -1) {
+            alert('Item already exists in the cart');
+        } else {
+            cart.push(cartItem);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert('Item added to cart');
+            updateCartInfo();
+        }
+    });
+
+    // Initialize cart info on page load
+    updateCartInfo();
+});
+
     </script>
 @endpush

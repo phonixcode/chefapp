@@ -69,6 +69,12 @@
                                 </div>
                             </div>
                             <div class="product__item__text">
+                                <span><a class="text-info" href="{{ route('chefs.details', $item->user->id) }}">
+                                    {{ $item->user->name }}
+                                    @if($item->user->chefVerification && $item->user->chefVerification->status == 'completed')
+                                        <img src="{{ asset('img/verify.png') }}" alt="" width="20">
+                                    @endif
+                                </a></span>
                                 <h6><a href="{{ route('recipes.details', $item->slug) }}">{{ $item->title }}</a></h6>
                                 <div class="product__item__price" data-price="{{ $item->price }}">€{{ $item->price }}</div>
                                 <div class="cart_add">

@@ -54,8 +54,9 @@
                                 
                                 <li class="nav-item dropdown user-profile">
                                     <a href="javascript:void(0)" class="nav-link dropdown-toggle " id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img src="{{ asset('img/chef-profile.jpg') }}" alt="avtar-img">
+                                        <img src="{{ asset('img/chef-profile.jpg') }}" alt="avatar-img">
                                     </a>
+                                    
                                     <div class="dropdown-menu animated fadeIn" aria-labelledby="navbarDropdown">
                                         <div class="bg-gradient px-4 py-3">
                                             <div class="d-flex align-items-center justify-content-between">
@@ -136,6 +137,7 @@
                                     <span class="nav-title">Withdrawal</span>
                                 </a> 
                             </li>
+                            
                             @if ($role == 'admin')
                             <li class="{{ request()->routeIs('users*') ? 'active' : '' }}">
                                 <a href="{{ route('users.index') }}" aria-expanded="false">
@@ -147,6 +149,12 @@
                                 <a href="{{ route('withdrawals') }}" aria-expanded="false">
                                     <i class="nav-icon ti ti-rocket"></i>
                                     <span class="nav-title">Withdrawals</span>
+                                </a> 
+                            </li>
+                            <li class="{{ request()->routeIs('chef-verifications*') ? 'active' : '' }}">
+                                <a href="{{ route('chef-verifications.index') }}" aria-expanded="false">
+                                    <i class="nav-icon ti ti-rocket"></i>
+                                    <span class="nav-title">Chef Verifications</span>
                                 </a> 
                             </li>
                             @endif

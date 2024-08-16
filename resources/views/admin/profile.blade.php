@@ -127,26 +127,57 @@
                     <div class="card-heading">
                         <h4 class="card-title">
                             Chef Verification
-
-                            <span class="btn btn-badge btn-dark">
-                                Not Verify
-                            </span>
+        
+                            @if($verification && $verification->status == 'pending')
+                                <span class="btn btn-badge btn-dark">Not Verified</span>
+                            @elseif($verification && $verification->status == 'completed')
+                                <span class="btn btn-badge btn-success">Verified</span>
+                            @elseif($verification && $verification->status == 'rejected')
+                                <span class="btn btn-badge btn-danger">Rejected</span>
+                            @else
+                                <span class="btn btn-badge btn-light">No Verification Status</span>
+                            @endif
                         </h4>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="upload_certificate">Upload Certificate</label>
-                            <input type="file" class="form-control" id="upload_certificate" placeholder="" name="upload_certificate">
+        
+                    @if($verification && $verification->status == 'completed')
+                        <div class="alert alert-success">
+                            Your certificate has been successfully verified.
                         </div>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
+                    @elseif($verification && $verification->status == 'rejected')
+                        <div class="alert alert-danger">
+                            Your certificate was rejected. Please upload a valid certificate.
+                        </div>
+                        <form action="{{ route('submitCertificate') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="upload_certificate">Upload Certificate</label>
+                                <input type="file" class="form-control" id="upload_certificate" name="upload_certificate">
+                            </div>
+        
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    @elseif($verification && $verification->status == 'pending')
+                        <div class="alert alert-info">
+                            Your certificate is under review.
+                        </div>
+                    @else
+                        <form action="{{ route('submitCertificate') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="upload_certificate">Upload Certificate</label>
+                                <input type="file" class="form-control" id="upload_certificate" name="upload_certificate">
+                            </div>
+        
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>
+        
     </div>
     <!-- end row -->
 </div>

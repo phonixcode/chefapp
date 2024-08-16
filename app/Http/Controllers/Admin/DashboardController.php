@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Blog;
 use App\Models\Order;
 use App\Models\Recipe;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Traits\FileUploadTrait;
+use App\Models\ChefVerification;
 use App\Http\Controllers\Controller;
-use App\Models\Booking;
 
 class DashboardController extends Controller
 {
@@ -29,7 +30,8 @@ class DashboardController extends Controller
     public function profile()
     {
         $booking = Booking::where('user_id', auth()->id())->first();
-        return view('admin.profile', compact('booking'));
+        $verification = ChefVerification::where('user_id', auth()->id())->first();
+        return view('admin.profile', compact('booking', 'verification'));
     }
 
     public function profileSubmit(Request $request)
@@ -63,6 +65,29 @@ class DashboardController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Profile updated Successfully');
+    }
+
+    public function submitCertificate(Request $request)
+    {
+        $request->validate([
+            'upload_certificate' => 'required|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
+
+        // Handle the file upload
+        if ($request->hasFile('upload_certificate')) {
+            $filePath = $this->uploadFile($request->file('upload_certificate'), 'certificates');
+        }
+
+        // Create or update the chef verification record
+        ChefVerification::updateOrCreate(
+            ['user_id' => auth()->id()],
+            [
+                'certificate' => $filePath,
+                'status' => 'pending',
+            ]
+        );
+
+        return redirect()->back()->with('status', 'Certificate submitted for review.');
     }
 
     public function bookingInfo(Request $request)

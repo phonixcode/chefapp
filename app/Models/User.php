@@ -92,16 +92,10 @@ class User extends Authenticatable
         return $this->hasOne(Booking::class);
     }
 
-
-    // public function getIs2faEnabledAttribute()
-    // {
-    //     return !is_null($this->two_factor_code);
-    // }
-
-    // public function setIs2FaEnabledAttribute($value)
-    // {
-    //     $this->attributes['is_2fa_enabled'] = (bool) $value;
-    // }
+    public function chefVerification()
+    {
+        return $this->hasOne(ChefVerification::class);
+    }
 
 
     // Define a scope for chefs

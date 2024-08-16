@@ -12,6 +12,7 @@ use App\Http\Controllers\RecipeReviewController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\WithdrawalController;
+use App\Http\Controllers\Admin\ChefVerificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,12 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::get('register', 'register')->name('register');
     Route::post('register', 'registerSubmit')->name('register.submit');
     Route::get('forget-password', 'forgetPassword')->name('forget.password');
+
+    Route::get('forgot-password', 'showLinkRequestForm')->name('password.request');
+    Route::post('forgot-password', 'sendResetLinkEmail')->name('password.email');
+
+    Route::get('reset-password/{token}', 'showResetForm')->name('password.reset');
+    Route::post('reset-password', 'reset')->name('password.update');
 
     Route::get('/2fa-verify', 'show2faForm')->name('2fa.verify');
     Route::post('/2fa-verify', 'verify2faCode')->name('2fa.verify.submit');
@@ -59,7 +66,7 @@ Route::get('/reviews/{recipe}', [RecipeReviewController::class, 'list'])->name('
 Route::get('recipes/{id}/reviews/count', [RecipeReviewController::class, 'count'])->name('reviews.count');
 
 Route::middleware('auth')->group(function () {
-    Route::post('logout',[AuthController::class, 'logout'])->name('logout');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::controller(OrderController::class)->group(function () {
         Route::post('/checkout', 'checkout')->name('checkout');
@@ -87,6 +94,7 @@ Route::middleware('auth')->group(function () {
             Route::get('profile', 'profile')->name('profile');
             Route::post('profile', 'profileSubmit')->name('profile.submit');
             Route::post('booking-info', 'bookingInfo')->name('booking.submit');
+            Route::post('submit-certificate', 'submitCertificate')->name('submitCertificate');
         });
 
         Route::controller(WithdrawalController::class)->group(function () {
@@ -94,13 +102,14 @@ Route::middleware('auth')->group(function () {
             Route::post('withdrawal/bank-information', 'bankInformationSubmit')->name('withdrawal.bank.information.submit');
             Route::post('withdrawal/withdraw-revenue', 'withdrawRevenue')->name('withdrawal.revenue.submit');
 
-            Route::get('withdrawals', 'withdrawals')->name('withdrawals');
-            Route::put('withdrawals/{id}/status', 'updateStatus')->name('withdrawals.updateStatus');
+            Route::get('withdrawals', 'withdrawals')->name('withdrawals')->middleware('check.admin');
+            Route::put('withdrawals/{id}/status', 'updateStatus')->name('withdrawals.updateStatus')->middleware('check.admin');
         });
 
         Route::resource('recipe-categories', CategoryController::class);
         Route::resource('recipe-items', RecipeController::class);
         Route::resource('blog-items', BlogController::class);
+        Route::resource('chef-verifications', ChefVerificationController::class)->middleware('check.admin');
         Route::resource('users', UserController::class)->middleware('check.admin');
     });
 });

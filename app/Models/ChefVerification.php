@@ -14,4 +14,9 @@ class ChefVerification extends Model
         'certificate',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
