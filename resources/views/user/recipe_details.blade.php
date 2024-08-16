@@ -105,42 +105,45 @@
                                 <div class="col-lg-8">
                                     <div class="blog__details__comment mt-5">
                                         @auth
-                                        <h4>Submit Review</h4>
-                                        <form action="{{ route('reviews.store') }}" method="POST" id="review-form">
-                                            @csrf
-                                            <div class="form-group mt-2">
-                                                <span>Your Rating</span>
-                                                <div class="stars">
-                                                    <input type="radio" name="rate" class="star-1" id="star-1"
-                                                        value="1">
-                                                    <label class="star-1" for="star-1">1</label>
-                                                    <input type="radio" name="rate" class="star-2" id="star-2"
-                                                        value="2">
-                                                    <label class="star-2" for="star-2">2</label>
-                                                    <input type="radio" name="rate" class="star-3" id="star-3"
-                                                        value="3">
-                                                    <label class="star-3" for="star-3">3</label>
-                                                    <input type="radio" name="rate" class="star-4" id="star-4"
-                                                        value="4">
-                                                    <label class="star-4" for="star-4">4</label>
-                                                    <input type="radio" name="rate" class="star-5" id="star-5"
-                                                        value="5">
-                                                    <label class="star-5" for="star-5">5</label>
-                                                </div>
-                                                @error('rate')
-                                                    <p class="text-danger">{{ $message }}</p>
-                                                @enderror
+                                            @if(auth()->user()->id !== $recipe->user_id)
 
-                                                <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
+                                                <h4>Submit Review</h4>
+                                                <form action="{{ route('reviews.store') }}" method="POST" id="review-form">
+                                                    @csrf
+                                                    <div class="form-group mt-2">
+                                                        <span>Your Rating</span>
+                                                        <div class="stars">
+                                                            <input type="radio" name="rate" class="star-1" id="star-1"
+                                                                value="1">
+                                                            <label class="star-1" for="star-1">1</label>
+                                                            <input type="radio" name="rate" class="star-2" id="star-2"
+                                                                value="2">
+                                                            <label class="star-2" for="star-2">2</label>
+                                                            <input type="radio" name="rate" class="star-3" id="star-3"
+                                                                value="3">
+                                                            <label class="star-3" for="star-3">3</label>
+                                                            <input type="radio" name="rate" class="star-4" id="star-4"
+                                                                value="4">
+                                                            <label class="star-4" for="star-4">4</label>
+                                                            <input type="radio" name="rate" class="star-5" id="star-5"
+                                                                value="5">
+                                                            <label class="star-5" for="star-5">5</label>
+                                                        </div>
+                                                        @error('rate')
+                                                            <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
 
-                                                <div class="form-group">
-                                                    <label for="comments">Leave a Comment</label>
-                                                    <textarea class="form-control" id="comments" rows="5" name="review" data-max-length="150" required></textarea>
-                                                </div>
+                                                        <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
 
-                                                <button type="submit" class="site-btn">Submit Review</button>
-                                            </div>
-                                        </form>
+                                                        <div class="form-group">
+                                                            <label for="comments">Leave a Comment</label>
+                                                            <textarea class="form-control" id="comments" rows="5" name="review" data-max-length="150" required></textarea>
+                                                        </div>
+
+                                                        <button type="submit" class="site-btn">Submit Review</button>
+                                                    </div>
+                                                </form>
+                                            @endif
                                         @endauth
                                         
                                         @include('partials.reviews')
