@@ -21,7 +21,6 @@ class DashboardController extends Controller
         $orders = Order::forUserRecipes($userId)->count();
         $recipes = Recipe::where('user_id', $userId)->count();
         $blogs = Blog::where('user_id', $userId)->count();
-        // $revenues = Order::forUserRecipes($userId)->where('status', 'completed')->sum('total_price');
         $revenues = auth()->user()->revenue;
 
         return view('admin.dashboard', compact('orders', 'recipes', 'blogs', 'revenues'));

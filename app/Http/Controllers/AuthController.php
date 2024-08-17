@@ -29,22 +29,6 @@ class AuthController extends Controller
         return view('user.auth.login');
     }
 
-    // public function loginSubmit(Request $request)
-    // {
-    //     $this->validate($request, [
-    //         'email' => 'required|email',
-    //         'password' => 'required'
-    //     ]);
-
-    //     $credentials = $request->only('email', 'password');
-
-    //     if (Auth::attempt($credentials)) {
-    //         return redirect()->intended(RouteServiceProvider::HOME); // Redirect to intended route or home if not set
-    //     }
-
-    //     return redirect()->back()->with('error', 'Incorrect credentials');
-    // }
-
     public function loginSubmit(Request $request)
     {
         $this->validate($request, [
